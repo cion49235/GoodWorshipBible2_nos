@@ -733,20 +733,8 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
                 }catch (ArrayIndexOutOfBoundsException e){
                 }catch (Exception e){
                 }
-                
-            case 200:
-                try{
-                    if ( grantResults[0] == PackageManager.PERMISSION_GRANTED && grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                    	displayList();
-                    } else {
-                    	Return_AlertShow(context.getString(R.string.permission_cancel));
-                    }
-                    break;
-                }catch (ArrayIndexOutOfBoundsException e){
-                }catch (Exception e){
-                }
-        }
-    }
+        	}
+    	}
 	
 	public void Return_AlertShow(String msg) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

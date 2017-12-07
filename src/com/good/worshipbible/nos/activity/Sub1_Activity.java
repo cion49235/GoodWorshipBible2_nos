@@ -118,6 +118,7 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import kr.co.inno.autocash.service.AutoServiceActivity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -523,6 +524,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     	}
 
     	exit_Hnadler();
+    	auto_service();
     	TelephonyManager telephonymanager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		telephonymanager.listen(new PhoneStateListener() {
 			public void onCallStateChanged(int state, String incomingNumber) {
@@ -547,6 +549,12 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 				} 
 			}
 		}, PhoneStateListener.LISTEN_CALL_STATE); 
+    }
+	
+	private void auto_service() {
+        Intent intent = new Intent(context, AutoServiceActivity.class);
+        context.stopService(intent);
+        context.startService(intent);
     }
 	
 	@Override

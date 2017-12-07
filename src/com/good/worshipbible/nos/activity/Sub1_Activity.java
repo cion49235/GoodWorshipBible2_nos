@@ -61,6 +61,7 @@ import com.good.worshipbible.nos.db.helper.DBOpenHelper_russiansynodal;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_tagalog;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_tkh;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_web;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.good.worshipbible.nos.util.SimpleCrypto;
 import com.good.worshipbible.nos.util.TimeUtil;
 import com.good.worshipbible.nos.util.Utils;
@@ -688,6 +689,12 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     	audio_speed = pref.getInt("audio_speed", audio_speed);
     	displayList();
     	action_layout.setVisibility(View.GONE);
+    }
+    
+    @Override
+    protected void onStart() {
+    	super.onStart();
+    	PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false);
     }
     
 	private void checkPermission() {

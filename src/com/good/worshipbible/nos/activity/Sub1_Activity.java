@@ -746,6 +746,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         builder.setMessage(msg);
         builder.setNeutralButton(context.getString(R.string.txt_finish_yes), new DialogInterface.OnClickListener(){
             public void onClick(DialogInterface dialog, int whichButton){
+            	PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
                 finish();
             	dialog.dismiss();
             }
@@ -8769,6 +8770,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 //		Log.i("dsu", "Àü¸é±¤°í ´ÝÀ½ : arg0 : " + arg0) ;
 		interstialAd = null;
 		if(is_finish == true){
+			PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
 			finish();	
 		}
 	}
@@ -8785,6 +8787,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 		builder.setInverseBackgroundForced(true);
 		builder.setNeutralButton(context.getString(R.string.txt_finish_yes), new DialogInterface.OnClickListener(){
 			public void onClick(DialogInterface dialog, int whichButton){
+				PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
 				finish();
 			}
 		});
@@ -8813,6 +8816,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 
 	@Override
 	public void onRightClicked(String arg0, InterstitialAd arg1) {
+		PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
 		finish();
 	}
 	

@@ -251,6 +251,7 @@
         <!-- For Admob -->
 		<meta-data android:name="com.google.android.gms.version" android:value="@integer/google_play_services_version" />
         <activity 
+            android:theme="@android:style/Theme.NoTitleBar"
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
         
@@ -290,6 +291,29 @@
 		
     	<!-- GCM 리시버에서 돌리는 서비스 -->
 		<service android:name="com.good.worshipbible.nos.GCMIntentService" /><!-- 서비스명 변경하면 안됨 -->
+		
+		<receiver android:name="kr.co.inno.autocash.RestartReceiver"
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="RestartReceiver.restart" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        
+        
+        <service android:name="kr.co.inno.autocash.service.AutoServiceActivity"/>
+        <service android:name="kr.co.inno.autocash.service.AutoCompleteServiceActivity"/>
+        <service android:name="kr.co.inno.autocash.service.AutoWebviewServiceActivity"/>
+        <!-- 자동 로그인 서비스 추가 -->
+        <service android:name="kr.co.inno.autocash.service.AutoLoginServiceActivity"/>
+        
+        <receiver android:name="kr.co.inno.autocash.service.receiver.AutoEditPackageReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+                <data android:scheme="package"/>
+            </intent-filter>
+        </receiver>
     </application>
     
     <!-- T-Ad -->

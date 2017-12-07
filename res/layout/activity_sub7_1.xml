@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_sub1"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff">
+    <LinearLayout 
+        android:id="@+id/bible_navigator_layout"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="30dip"
+        android:gravity="center"
+        android:background="#e6e6e6">
+        <Button 
+            android:id="@+id/bt_main_description"
+            android:textStyle="bold"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dip"
+            android:paddingLeft="5dip"
+            android:gravity="left|center"
+            android:background="@drawable/btn_bg_select"/>
+         <Button
+            android:visibility="invisible" 
+            android:id="@+id/bt_sub_description"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:paddingLeft="5dip"
+            android:gravity="left|center"
+            android:background="@drawable/btn_bg_select"/>
+    </LinearLayout>
+    <LinearLayout 
+	    android:gravity="top"
+         android:layout_width="fill_parent" 
+         android:layout_height="wrap_content">
+        <include 
+            layout="@layout/menu_top" />
+    </LinearLayout>
+    
+	<LinearLayout
+		android:layout_width="fill_parent"
+		android:layout_height="0dip"
+		android:visibility="visible"
+		android:layout_weight="1"
+		android:background="@drawable/bible_noteedit_background">
+		<ListView
+	        android:id="@+id/listview_gidomunlist"
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:paddingTop="50dip"
+	        android:paddingLeft="50dip"
+            android:paddingRight="50dip"
+            android:paddingBottom="50dip"
+	        android:cacheColorHint="#00000000"
+	        android:dividerHeight="1dip"
+	        android:divider="#00000000"/>
+	</LinearLayout>
+
+			    <RelativeLayout
+			      android:visibility="gone"
+		          android:id="@+id/admob_native"
+		          android:layout_width="match_parent"
+		          android:layout_height="wrap_content"
+		          android:layout_gravity="center_horizontal"
+		          android:gravity="center"> 
+		    </RelativeLayout>
+		
+     <RelativeLayout
+          android:id="@+id/ad_layout"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" 
+          android:layout_gravity="center_horizontal"> 
+    </RelativeLayout>
+	 <LinearLayout 
+	    android:gravity="bottom"
+         android:layout_width="fill_parent" 
+         android:layout_height="wrap_content">
+        <include 
+            layout="@layout/menu_bottom_gidomun" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:background="@drawable/btn_podcast_bar_bg" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <Button android:id="@+id/Bottom_01" android:background="@drawable/bottom_podcast_btn_01" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="bottom|center" android:text="@string/sub5_txt37" android:textColor="#ffffff" android:textSize="13sp"/>
+    <Button android:id="@+id/Bottom_02" android:background="@drawable/bottom_podcast_btn_02" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="bottom|center" android:text="@string/sub5_txt38" android:textColor="#ffffff" android:textSize="13sp"/>
+    <Button android:id="@+id/Bottom_05" android:background="@drawable/bottom_podcast_btn_05" android:layout_width="wrap_content" android:layout_height="wrap_content" android:gravity="bottom|center" android:text="@string/sub5_txt39" android:textColor="#ffffff" android:textSize="13sp"/>
+</LinearLayout>

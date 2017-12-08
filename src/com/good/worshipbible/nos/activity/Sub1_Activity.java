@@ -8918,7 +8918,8 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 							 @Override
 							 public void run() {
 								 is_finish = false;
-								 addInterstitialView_popup();
+								 PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
+								 finish();
 							 }
 						 },0);
 					 }catch(Exception e){

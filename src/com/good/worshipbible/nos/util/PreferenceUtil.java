@@ -11,7 +11,7 @@ public class PreferenceUtil {
 	
 	private static final String SHARED_FILE_TITLE = "pref_goodworshipbible";
 	public final static String PREF_AD_VIEW = "ad_view";
-	
+	public final static String PREF_AD_TIME = "ad_time";
 	//==============================================================================================//
 	//================================ ?îÑÎ¶¨Ìçº?ü∞?ä§ ???û•?ïòÍ≥? Î∂àÎü¨?ò§Í∏? ================================//
 	public static boolean getBooleanSharedData(Context context, String key, boolean defaultData) {

@@ -224,7 +224,7 @@ public class ContactUs_Activity extends Activity implements InterstitialAdListen
 	
 	public void addInterstitialView() {
     	if(interstialAd == null) {
-        	AdInfo adInfo = new AdInfo("cq61ihae");
+        	AdInfo adInfo = new AdInfo("u6dbtyd1");
 //        	adInfo.setTestMode(false);
         	interstialAd = new com.admixer.InterstitialAd(this);
         	interstialAd.setAdInfo(adInfo, this);

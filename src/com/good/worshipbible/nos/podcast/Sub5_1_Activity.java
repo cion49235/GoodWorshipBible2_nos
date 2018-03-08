@@ -23,6 +23,7 @@ import com.admixer.AdViewListener;
 import com.admixer.CustomPopup;
 import com.admixer.InterstitialAd;
 import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.mediaplayer.ContinueMediaPlayer;
 import com.good.worshipbible.nos.mediaplayer.CustomMediaPlayer;
 import com.good.worshipbible.nos.podcast.adapter.Sub5_1_Adapter;
@@ -32,6 +33,7 @@ import com.good.worshipbible.nos.podcast.db.helper.Sub5_3_DBopenHelper;
 import com.good.worshipbible.nos.util.Crypto;
 import com.good.worshipbible.nos.util.KoreanTextMatch;
 import com.good.worshipbible.nos.util.KoreanTextMatcher;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.good.worshipbible.nos.util.Utils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -125,7 +127,9 @@ public class Sub5_1_Activity extends Activity implements OnItemClickListener, On
 	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 	context = this;
 	view_num = "460";
-    addBannerView();
+	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+    	addBannerView();    		
+	}
 //	init_admob_naive();
 	textview_write = (TextView) findViewById(R.id.textview_write);
 	layout_nodata = (LinearLayout)findViewById(R.id.layout_nodata);

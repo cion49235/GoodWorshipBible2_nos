@@ -22,10 +22,12 @@ import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.ccm.adapter.Sub6_1_Adapter;
 import com.good.worshipbible.nos.ccm.data.Main_Data;
 import com.good.worshipbible.nos.ccm.db.helper.Sub6_2_DBopenHelper;
+import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.podcast.db.helper.Pause_DBOpenHelper;
 import com.good.worshipbible.nos.util.Crypto;
 import com.good.worshipbible.nos.util.KoreanTextMatch;
 import com.good.worshipbible.nos.util.KoreanTextMatcher;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.good.worshipbible.nos.util.Utils;
 import com.good.worshipbible.nos.videoplayer.CustomVideoPlayer;
 import com.google.android.gms.ads.AdRequest;
@@ -137,9 +139,11 @@ public class Sub6_1_Activity extends Activity implements OnItemClickListener, On
 	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 	context = this;
 	num = "455";
-    addBannerView();
+	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+    	addBannerView();
+    	create_mAdFloating();
+	}
 //	init_admob_naive();
-    create_mAdFloating();
 	layout_nodata = (LinearLayout)findViewById(R.id.layout_nodata);
 	layout_progress = (LinearLayout)findViewById(R.id.layout_progress);
 	action_layout = (LinearLayout)findViewById(R.id.action_layout);

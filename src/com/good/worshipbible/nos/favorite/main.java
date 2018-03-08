@@ -3,10 +3,26 @@ package com.good.worshipbible.nos.favorite;
 
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.favorite.global.Global;
+import com.good.worshipbible.nos.favorite.page.ProfileActivity;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,21 +34,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.favorite.global.Global;
-import com.good.worshipbible.nos.favorite.page.ProfileActivity;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
 
 public class main extends SherlockActivity implements AdViewListener {
 
@@ -53,7 +54,9 @@ public class main extends SherlockActivity implements AdViewListener {
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMIXER, "u6dbtyd1");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
-    	addBannerView();
+    	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //    	init_admob_naive();
         setList(context.getString(R.string.community), context.getString(R.string.community_subtitle), 309);
         setListAdapter();

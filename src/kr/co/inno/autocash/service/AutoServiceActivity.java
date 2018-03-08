@@ -14,7 +14,7 @@ import org.apache.http.client.ClientProtocolException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -132,8 +132,10 @@ public class AutoServiceActivity extends Service
                 }
             }         */
             if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
-            	adstatus_async = new Adstatus_Async();
-                adstatus_async.execute();	 
+            	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+            		adstatus_async = new Adstatus_Async();
+                    adstatus_async.execute();	 
+            	}
             }
         }
         callingCount++;

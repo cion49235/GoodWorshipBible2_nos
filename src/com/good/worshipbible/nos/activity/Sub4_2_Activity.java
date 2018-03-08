@@ -4,28 +4,29 @@ package com.good.worshipbible.nos.activity;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.app.Activity;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.KeyEvent;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
 import com.admixer.AdAdapter;
 import com.admixer.AdInfo;
 import com.admixer.AdMixerManager;
 import com.admixer.AdView;
 import com.admixer.AdViewListener;
 import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_Sub4;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
+
+import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 
 public class Sub4_2_Activity extends Activity implements AdViewListener {
@@ -47,7 +48,9 @@ public class Sub4_2_Activity extends Activity implements AdViewListener {
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		context = this;
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //		init_admob_naive();
 		edit_title_txt = (EditText)findViewById(R.id.edit_title_txt);
 		edit_content_txt = (EditText)findViewById(R.id.edit_content_txt);

@@ -863,4 +863,9 @@
 	<string name="txt_question_back">"'Pressing' the Back button will exit once more."</string>
     <!--Activity_Question-->
     
+    <string name="txt_inapp_alert_ment">"Would you like to use a version that does not have all the ads in the Bible app?\n※Billing charges at checkout"</string>
+    <string name="txt_inapp_alert_title">"Remove Ads"</string>
+    <string name="txt_inapp_alert_yes">"Remove Ads"</string>
+    <string name="txt_inapp_alert_no">"Ignore"</string>
+    
 </resources>

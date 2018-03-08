@@ -16,6 +16,18 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.admixer.InterstitialAd;
+import com.admixer.InterstitialAdListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.good.worshipbible.nos.util.TimeUtil;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -31,7 +43,6 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -46,17 +57,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.admixer.InterstitialAd;
-import com.admixer.InterstitialAdListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.mediaplayer.ContinueMediaPlayer;
-import com.good.worshipbible.nos.util.TimeUtil;
 
 public class CustomVideoPlayer extends Activity implements OnCompletionListener, OnPreparedListener,android.widget.SeekBar.OnSeekBarChangeListener, OnErrorListener, OnClickListener, OnTouchListener, AdViewListener, InterstitialAdListener{
 	ArrayList<String> array_videoid, array_subject;
@@ -984,14 +984,16 @@ public class CustomVideoPlayer extends Activity implements OnCompletionListener,
 				Toast.makeText(context, context.getString(R.string.sub6_txt18), Toast.LENGTH_SHORT).show();
 				return false;
 			}else{
-				Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
-				addInterstitialView();
+				if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+					Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
+					addInterstitialView();					
+				}
 				handler.postDelayed(new Runnable() {
 					 @Override
 					 public void run() {
 						 onDestroy();
 					 }
-				 },3000);
+				 },2500);
 				return false;
 			}
 		}

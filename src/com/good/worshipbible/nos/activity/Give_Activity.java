@@ -1,21 +1,22 @@
 package com.good.worshipbible.nos.activity;
 
-import android.app.Activity;
-import android.content.Context;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.RelativeLayout;
-
 import com.admixer.AdAdapter;
 import com.admixer.AdInfo;
 import com.admixer.AdMixerManager;
 import com.admixer.AdView;
 import com.admixer.AdViewListener;
 import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
+
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.RelativeLayout;
 public class Give_Activity extends Activity implements AdViewListener{
 	public static Context context;
 	public static RelativeLayout ad_layout;
@@ -30,7 +31,9 @@ public class Give_Activity extends Activity implements AdViewListener{
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		context = this;
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //		init_admob_naive();
 	}
 	

@@ -4,6 +4,21 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.mediaplayer.CustomMediaPlayer;
+import com.good.worshipbible.nos.podcast.data.Sub5_4_ColumData;
+import com.good.worshipbible.nos.podcast.db.helper.Sub5_4_DBopenHelper;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -17,7 +32,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,19 +47,6 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.mediaplayer.CustomMediaPlayer;
-import com.good.worshipbible.nos.podcast.data.Sub5_4_ColumData;
-import com.good.worshipbible.nos.podcast.db.helper.Sub5_4_DBopenHelper;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
 
 public class Sub5_4_1_Activity extends Activity implements OnItemClickListener, AdViewListener, OnClickListener{
 	public Sub5_4_DBopenHelper download_mydb;
@@ -75,7 +76,9 @@ public class Sub5_4_1_Activity extends Activity implements OnItemClickListener, 
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		context = this;
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //		init_admob_naive();
 		txt_subdownload_title = (TextView)findViewById(R.id.txt_subdownload_title);
 		layout_listview_subdownload = (LinearLayout)findViewById(R.id.layout_listview_subdownload);

@@ -7,48 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Color;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.speech.tts.TextToSpeech;
-import android.speech.tts.TextToSpeech.OnInitListener;
-import android.telephony.PhoneStateListener;
-import android.telephony.TelephonyManager;
-import android.text.Spannable;
-import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.util.SparseBooleanArray;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
-
 import com.admixer.AdAdapter;
 import com.admixer.AdInfo;
 import com.admixer.AdMixerManager;
@@ -57,7 +15,7 @@ import com.admixer.AdViewListener;
 import com.admixer.InterstitialAd;
 import com.admixer.InterstitialAdListener;
 import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.data.Sub1_2_ColumData;
+import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.data.Sub1_ColumData;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_Sub4;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_alb;
@@ -91,9 +49,51 @@ import com.good.worshipbible.nos.db.helper.DBOpenHelper_russiansynodal;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_tagalog;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_tkh;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_web;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
+
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.speech.tts.TextToSpeech;
+import android.speech.tts.TextToSpeech.OnInitListener;
+import android.telephony.PhoneStateListener;
+import android.telephony.TelephonyManager;
+import android.text.Spannable;
+import android.text.style.ForegroundColorSpan;
+import android.util.SparseBooleanArray;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class Search_Activity extends Activity implements OnClickListener,OnItemClickListener, OnScrollListener, OnInitListener, AdViewListener, InterstitialAdListener {
@@ -165,7 +165,9 @@ public class Search_Activity extends Activity implements OnClickListener,OnItemC
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
         context = this;
-        addBannerView();
+        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //        init_admob_naive();
         layout_listview_search = (LinearLayout)findViewById(R.id.layout_listview_search);
         layout_nodata = (LinearLayout)findViewById(R.id.layout_nodata);
@@ -427,7 +429,9 @@ public class Search_Activity extends Activity implements OnClickListener,OnItemC
     			if(autoscroll_thread == null) autoScrollTask();
     		}
     	}else if(view == Bottom_07){
-    		addInterstitialView();
+    		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+    			addInterstitialView();    			
+    		}
     	}else if(view == bt_action1){
 			if(bt_action1.isSelected()){
 				bt_action1.setSelected(false);

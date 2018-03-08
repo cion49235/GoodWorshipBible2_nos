@@ -4,6 +4,25 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.admixer.InterstitialAd;
+import com.admixer.InterstitialAdListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.podcast.Sub5_1_Activity;
+import com.good.worshipbible.nos.podcast.Sub5_5_Activity;
+import com.good.worshipbible.nos.podcast.db.helper.Pause_DBOpenHelper;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.good.worshipbible.nos.util.TimeUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.squareup.picasso.Picasso;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -22,7 +41,6 @@ import android.os.Handler;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,23 +52,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.admixer.InterstitialAd;
-import com.admixer.InterstitialAdListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.podcast.Sub5_1_Activity;
-import com.good.worshipbible.nos.podcast.Sub5_5_Activity;
-import com.good.worshipbible.nos.podcast.db.helper.Pause_DBOpenHelper;
-import com.good.worshipbible.nos.util.TimeUtil;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
-import com.squareup.picasso.Picasso;
 
 public class ContinueMediaPlayer extends Activity implements OnClickListener, AdViewListener, InterstitialAdListener{
 	public static LinearLayout layout_progress;
@@ -85,7 +86,9 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 		setContentView(R.layout.continue_mediaplayer);
 		context = this;
 //		init_admob_naive();
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //		Toast toast = Toast.makeText(context, context.getString(R.string.sub6_txt26), Toast.LENGTH_LONG);
 //		toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL,0,0);
 //		toast.show();
@@ -536,8 +539,18 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 				mediaPlayAsync.execute();
 			}
 		}else if(view == btn_media_continue){
-			Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
-			addInterstitialView();
+			if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+				Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
+				addInterstitialView();				
+			}else {
+				Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
+				if(ContinueMediaPlayer.mediaPlayer.isPlaying()){
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_HOME);
+					startActivity(intent);
+				}
+			}
 		}
 	}
 
@@ -547,8 +560,10 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 			if(ContinueMediaPlayer.mediaPlayer.isPlaying()){
 				ContinueMediaPlayer.mediaPlayer.pause();
 			}
-			Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
-			addInterstitialView();
+			if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+				Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
+				addInterstitialView();				
+			}
 			 handler.postDelayed(new Runnable() {
 				 @Override
 				 public void run() {

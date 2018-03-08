@@ -6,6 +6,8 @@ import com.admixer.AdMixerManager;
 import com.admixer.AdViewListener;
 import com.admixer.InterstitialAdListener;
 import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.good.worshipbible.nos.util.SimpleCrypto;
 import com.good.worshipbible.nos.util.Utils;
 import com.google.android.gms.ads.AdRequest;
@@ -24,15 +26,12 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 public class ContactUs_Activity extends Activity implements InterstitialAdListener, AdViewListener{
 	public static Context context;
@@ -56,7 +55,9 @@ public class ContactUs_Activity extends Activity implements InterstitialAdListen
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 //    	init_admob_naive();
-		addBannerView();
+    	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 		display_question();
 		exit_handler();
 	}

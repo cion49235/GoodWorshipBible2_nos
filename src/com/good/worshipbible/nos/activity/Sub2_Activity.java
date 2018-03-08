@@ -15,6 +15,58 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.admixer.InterstitialAd;
+import com.admixer.InterstitialAdListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.ccm.db.helper.VoicePause_DBOpenHelper;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.data.Sub1_2_ColumData;
+import com.good.worshipbible.nos.data.Sub1_ColumData;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_Sub4;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_alb;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_asv;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_avs;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_barun;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_chb;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_chg;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_cjb;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_ckb;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_ckc;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_ckg;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_cks;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_frenchdarby;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_germanluther;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_gst;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_hebbhs;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_hebmod;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_hebwlc;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_indianhindi;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_indiantamil;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_indonesianbaru;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_jpnnew;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_jpnold;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_kbb;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_kjv;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_kkk;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_portugal;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_reina;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_russiansynodal;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_tagalog;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_tkh;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_web;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.good.worshipbible.nos.util.SimpleCrypto;
+import com.good.worshipbible.nos.util.TimeUtil;
+import com.good.worshipbible.nos.util.Utils;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -69,57 +121,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.admixer.InterstitialAd;
-import com.admixer.InterstitialAdListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.ccm.db.helper.VoicePause_DBOpenHelper;
-import com.good.worshipbible.nos.data.Sub1_2_ColumData;
-import com.good.worshipbible.nos.data.Sub1_ColumData;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_Sub4;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_alb;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_asv;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_avs;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_barun;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_chb;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_chg;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_cjb;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_ckb;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_ckc;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_ckg;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_cks;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_frenchdarby;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_germanluther;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_gst;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_hebbhs;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_hebmod;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_hebwlc;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_indianhindi;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_indiantamil;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_indonesianbaru;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_jpnnew;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_jpnold;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_kbb;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_kjv;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_kkk;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_portugal;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_reina;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_russiansynodal;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_tagalog;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_tkh;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_web;
-import com.good.worshipbible.nos.mediaplayer.ContinueMediaPlayer;
-import com.good.worshipbible.nos.util.SimpleCrypto;
-import com.good.worshipbible.nos.util.TimeUtil;
-import com.good.worshipbible.nos.util.Utils;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
 
 
 public class Sub2_Activity extends Activity implements OnClickListener,OnItemClickListener, OnScrollListener, OnInitListener, AdViewListener, InterstitialAdListener{
@@ -309,7 +310,9 @@ public class Sub2_Activity extends Activity implements OnClickListener,OnItemCli
         }
 //        mediaPlayer = new MediaPlayer();
         voicepause_mydb = new VoicePause_DBOpenHelper(this);
-        addBannerView();
+        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //        init_admob_naive();
         String[] kwon_kbb = {context.getString(R.string.txt_kwon_kbb40),
         		context.getString(R.string.txt_kwon_kbb41),
@@ -2760,7 +2763,9 @@ public class Sub2_Activity extends Activity implements OnClickListener,OnItemCli
     		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     	}else if(view == Bottom_07){
-    		addInterstitialView();
+    		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+    			addInterstitialView();    			
+    		}
     	}else if(view == Bottom_08){
     		settings = getSharedPreferences(context.getString(R.string.txt_sharedpreferences_string), MODE_PRIVATE);
     		edit = settings.edit();

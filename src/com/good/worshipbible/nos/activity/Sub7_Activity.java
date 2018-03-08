@@ -3,6 +3,20 @@ package com.good.worshipbible.nos.activity;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.data.Sub7_ColumData;
+import com.good.worshipbible.nos.db.helper.DBOpenHelper_Sub7;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -15,7 +29,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -29,18 +42,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.data.Sub7_ColumData;
-import com.good.worshipbible.nos.db.helper.DBOpenHelper_Sub7;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
 
 public class Sub7_Activity extends Activity implements OnClickListener, OnItemClickListener, AdViewListener {
 	public static Button bt_main_description, bt_sub_description;
@@ -74,7 +75,9 @@ public class Sub7_Activity extends Activity implements OnClickListener, OnItemCl
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		context = this;
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //		init_admob_naive();
 		bt_main_description = (Button)findViewById(R.id.bt_main_description);
 		bt_sub_description = (Button)findViewById(R.id.bt_sub_description);

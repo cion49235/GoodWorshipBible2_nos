@@ -3,6 +3,26 @@ package com.good.worshipbible.nos.mediaplayer;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.admixer.InterstitialAd;
+import com.admixer.InterstitialAdListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.podcast.Sub5_1_Activity;
+import com.good.worshipbible.nos.podcast.Sub5_2_Activity;
+import com.good.worshipbible.nos.podcast.Sub5_4_1_Activity;
+import com.good.worshipbible.nos.podcast.db.helper.Pause_DBOpenHelper;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.good.worshipbible.nos.util.TimeUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.squareup.picasso.Picasso;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +41,6 @@ import android.os.Handler;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,24 +52,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.admixer.InterstitialAd;
-import com.admixer.InterstitialAdListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.podcast.Sub5_1_Activity;
-import com.good.worshipbible.nos.podcast.Sub5_2_Activity;
-import com.good.worshipbible.nos.podcast.Sub5_4_1_Activity;
-import com.good.worshipbible.nos.podcast.db.helper.Pause_DBOpenHelper;
-import com.good.worshipbible.nos.util.TimeUtil;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
-import com.squareup.picasso.Picasso;
 
 public class CustomMediaPlayer extends Activity implements OnClickListener, AdViewListener, InterstitialAdListener{
 	public static LinearLayout layout_progress;
@@ -89,7 +90,9 @@ public class CustomMediaPlayer extends Activity implements OnClickListener, AdVi
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		context = this;
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //		init_admob_naive();
 //		Toast toast = Toast.makeText(context, context.getString(R.string.sub6_txt26), Toast.LENGTH_LONG);
 //		toast.setGravity(Gravity.CENTER_HORIZONTAL|Gravity.CENTER_VERTICAL,0,0);
@@ -488,8 +491,18 @@ public class CustomMediaPlayer extends Activity implements OnClickListener, AdVi
 				mediaPlayer.seekTo(mediaPlayer.getDuration());
 			}
 		}else if(view == btn_media_continue){
-			Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
-			addInterstitialView();
+			if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+				Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
+				addInterstitialView();				
+			}else {
+				Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
+				if(CustomMediaPlayer.mediaPlayer.isPlaying()){
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_HOME);
+					startActivity(intent);
+				}
+			}
 		}
 	}
 	
@@ -499,8 +512,10 @@ public class CustomMediaPlayer extends Activity implements OnClickListener, AdVi
 			if(CustomMediaPlayer.mediaPlayer.isPlaying() == true){
 				CustomMediaPlayer.mediaPlayer.pause();
 			}
-			Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
-			addInterstitialView();
+			if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+				Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
+				addInterstitialView();				
+			}
 			 handler.postDelayed(new Runnable() {
 				 @Override
 				 public void run() {

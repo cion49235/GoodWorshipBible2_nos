@@ -2147,7 +2147,7 @@ containing a value of this type.
         public static final int community_subtitle=0x7f0a028b;
         public static final int completed=0x7f0a030e;
         public static final int contact=0x7f0a028e;
-        public static final int contact_pick_error=0x7f0a0345;
+        public static final int contact_pick_error=0x7f0a0349;
         public static final int contact_pick_error_=0x7f0a02ce;
         public static final int copy=0x7f0a02f0;
         public static final int copyright=0x7f0a027a;
@@ -2174,7 +2174,7 @@ containing a value of this type.
         public static final int downloading_ment=0x7f0a026c;
         public static final int drawer_close=0x7f0a02c4;
         public static final int drawer_open=0x7f0a02c3;
-        public static final int during_logout=0x7f0a0344;
+        public static final int during_logout=0x7f0a0348;
         public static final int edit_profile=0x7f0a02fa;
         public static final int enquire=0x7f0a02e3;
         public static final int error=0x7f0a02a1;
@@ -2200,8 +2200,8 @@ containing a value of this type.
         public static final int location=0x7f0a02b4;
         public static final int location_des=0x7f0a02b5;
         public static final int logout=0x7f0a0292;
-        public static final int logout_des=0x7f0a0342;
-        public static final int logout_really=0x7f0a0343;
+        public static final int logout_des=0x7f0a0346;
+        public static final int logout_really=0x7f0a0347;
         public static final int main_txt1=0x7f0a0017;
         public static final int male=0x7f0a02d2;
         public static final int media_continue_ment=0x7f0a026a;
@@ -2248,7 +2248,7 @@ containing a value of this type.
         public static final int phone_number_des=0x7f0a02b0;
         public static final int photo=0x7f0a02ff;
         public static final int pic_size_devide=0x7f0a0278;
-        public static final int plan=0x7f0a0340;
+        public static final int plan=0x7f0a0344;
         /**  Privacy 
  Privacy 
          */
@@ -2296,7 +2296,7 @@ containing a value of this type.
         public static final int sign_up=0x7f0a0290;
         public static final int signing_in=0x7f0a029e;
         public static final int skip=0x7f0a02ab;
-        public static final int special_user=0x7f0a0341;
+        public static final int special_user=0x7f0a0345;
         public static final int start=0x7f0a0298;
         public static final int start_downloading=0x7f0a030a;
         public static final int sub1_txt1=0x7f0a001b;
@@ -2463,6 +2463,13 @@ containing a value of this type.
         public static final int txt_hymnsong_url_new=0x7f0a032c;
         public static final int txt_hymnsong_url_old=0x7f0a032b;
         public static final int txt_img_biblesong_nodata=0x7f0a021a;
+        /** Activity_Question
+Activity_Question
+         */
+        public static final int txt_inapp_alert_ment=0x7f0a0340;
+        public static final int txt_inapp_alert_no=0x7f0a0343;
+        public static final int txt_inapp_alert_title=0x7f0a0341;
+        public static final int txt_inapp_alert_yes=0x7f0a0342;
         public static final int txt_indianhindi_path=0x7f0a01f0;
         public static final int txt_indiantamil_path=0x7f0a01f1;
         public static final int txt_indonesianbaru_path=0x7f0a01e0;

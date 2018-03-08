@@ -4,8 +4,30 @@ package com.good.worshipbible.nos.favorite.page;
 import java.io.File;
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.SubMenu;
+import com.actionbarsherlock.view.Window;
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.favorite.GalleryView;
+import com.good.worshipbible.nos.favorite.connect.AsyncHttpTask;
+import com.good.worshipbible.nos.favorite.global.Global;
+import com.good.worshipbible.nos.favorite.global.Globalvariable;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
@@ -18,25 +40,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.SubMenu;
-import com.actionbarsherlock.view.Window;
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.favorite.GalleryView;
-import com.good.worshipbible.nos.favorite.connect.AsyncHttpTask;
-import com.good.worshipbible.nos.favorite.global.Global;
-import com.good.worshipbible.nos.favorite.global.Globalvariable;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
 
 public class document_write extends SherlockActivity implements AdViewListener {
 
@@ -65,6 +68,7 @@ public class document_write extends SherlockActivity implements AdViewListener {
 	public static RelativeLayout ad_layout;
 	boolean show_alert = false;
 	private NativeExpressAdView admobNative;
+	Context context;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -72,6 +76,7 @@ public class document_write extends SherlockActivity implements AdViewListener {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.favorite_document_write);
 		show_alert = true;
+		context = this;
 		// 액션바백버튼가져오기
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		setSupportProgressBarIndeterminateVisibility(false);
@@ -80,7 +85,9 @@ public class document_write extends SherlockActivity implements AdViewListener {
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMIXER, "u6dbtyd1");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
-    	addBannerView();
+    	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //    	init_admob_naive();
 		// Get Intent
 		Intent intent = getIntent();// 인텐트 받아오고

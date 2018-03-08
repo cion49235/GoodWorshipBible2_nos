@@ -8,6 +8,30 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import com.actionbarsherlock.app.SherlockActivity;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuItem;
+import com.actionbarsherlock.view.Window;
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.favorite.connect.AsyncHttpTask;
+import com.good.worshipbible.nos.favorite.connect.ImageDownloader;
+import com.good.worshipbible.nos.favorite.fadingactionbar.FadingActionBarHelper;
+import com.good.worshipbible.nos.favorite.global.Global;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.skplanet.tad.AdFloating;
+import com.skplanet.tad.AdFloatingListener;
+import com.skplanet.tad.AdRequest.ErrorCode;
+import com.skplanet.tad.AdSlot;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -34,28 +58,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.favorite.connect.AsyncHttpTask;
-import com.good.worshipbible.nos.favorite.connect.ImageDownloader;
-import com.good.worshipbible.nos.favorite.fadingactionbar.FadingActionBarHelper;
-import com.good.worshipbible.nos.favorite.global.Global;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
-import com.skplanet.tad.AdFloating;
-import com.skplanet.tad.AdFloatingListener;
-import com.skplanet.tad.AdRequest.ErrorCode;
-import com.skplanet.tad.AdSlot;
 
 public class ProfileActivity extends SherlockActivity implements AdViewListener, AdFloatingListener {
 
@@ -90,12 +92,14 @@ public class ProfileActivity extends SherlockActivity implements AdViewListener,
 	public static AdFloating mAdFloating;
 	public Handler handler = new Handler();
 	private NativeExpressAdView admobNative;
+	Context context;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		// Can use progress
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		context = this;
 		show_alert = true;
 		AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_TAD, "AX0004398");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_TAD_FULL, "AX0004397");
@@ -271,9 +275,11 @@ public class ProfileActivity extends SherlockActivity implements AdViewListener,
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		
-		addBannerView();
+    	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();
+        	create_mAdFloating();
+    	}
 //    	init_admob_naive();
-		create_mAdFloating();
 	}
 
 	public void setListAdapter() {

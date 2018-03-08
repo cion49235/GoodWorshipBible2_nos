@@ -27,6 +27,7 @@ import com.admixer.InterstitialAdListener;
 import com.admixer.PopupInterstitialAdOption;
 import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.ccm.db.helper.VoicePause_DBOpenHelper;
+import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.data.Sub1_2_ColumData;
 import com.good.worshipbible.nos.data.Sub1_ColumData;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_Sub4;
@@ -69,7 +70,6 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -118,7 +118,6 @@ import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import kr.co.inno.autocash.service.AutoServiceActivity;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -129,6 +128,7 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+import kr.co.inno.autocash.service.AutoServiceActivity;
 
 
 public class Sub1_Activity extends Activity implements OnClickListener,OnItemClickListener, OnScrollListener, OnInitListener,InterstitialAdListener, AdViewListener, CustomPopupListener {
@@ -394,7 +394,9 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         }
 //        mediaPlayer = new MediaPlayer();
         voicepause_mydb = new VoicePause_DBOpenHelper(this);
-        addBannerView();
+        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //        init_admob_naive();
         
 //      Custom Popup Ω√¿€
@@ -524,7 +526,11 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     	}
 
     	exit_Hnadler();
-    	auto_service();
+    	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+    		auto_service();    		
+    	}else {
+    		auto_service_stop();
+    	}
     	TelephonyManager telephonymanager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		telephonymanager.listen(new PhoneStateListener() {
 			public void onCallStateChanged(int state, String incomingNumber) {
@@ -555,6 +561,11 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         Intent intent = new Intent(context, AutoServiceActivity.class);
         context.stopService(intent);
         context.startService(intent);
+    }
+	
+	private void auto_service_stop() {
+        Intent intent = new Intent(context, AutoServiceActivity.class);
+        context.stopService(intent);
     }
 	
 	@Override
@@ -6071,8 +6082,10 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     	}else if(view == Bottom_07){
-    		is_finish = false;
-    		addInterstitialView();
+    		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+    			is_finish = false;
+        		addInterstitialView();    			
+    		}
     	}else if(view == Bottom_08){
     		settings = getSharedPreferences(context.getString(R.string.txt_sharedpreferences_string), MODE_PRIVATE);
     		edit = settings.edit();

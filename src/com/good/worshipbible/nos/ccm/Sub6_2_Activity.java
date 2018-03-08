@@ -3,6 +3,24 @@ package com.good.worshipbible.nos.ccm;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.admixer.AdAdapter;
+import com.admixer.AdInfo;
+import com.admixer.AdMixerManager;
+import com.admixer.AdView;
+import com.admixer.AdViewListener;
+import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.ccm.data.Favorite_Data;
+import com.good.worshipbible.nos.ccm.db.helper.Sub6_2_DBopenHelper;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.util.ImageLoader;
+import com.good.worshipbible.nos.util.PreferenceUtil;
+import com.good.worshipbible.nos.util.RoundedTransform;
+import com.good.worshipbible.nos.videoplayer.CustomVideoPlayer;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.NativeExpressAdView;
+import com.squareup.picasso.Picasso;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -37,22 +55,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.admixer.AdAdapter;
-import com.admixer.AdInfo;
-import com.admixer.AdMixerManager;
-import com.admixer.AdView;
-import com.admixer.AdViewListener;
-import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.ccm.data.Favorite_Data;
-import com.good.worshipbible.nos.ccm.db.helper.Sub6_2_DBopenHelper;
-import com.good.worshipbible.nos.util.ImageLoader;
-import com.good.worshipbible.nos.util.RoundedTransform;
-import com.good.worshipbible.nos.videoplayer.CustomVideoPlayer;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdSize;
-import com.google.android.gms.ads.NativeExpressAdView;
-import com.squareup.picasso.Picasso;
-
 public class Sub6_2_Activity extends Activity implements OnItemClickListener, AdViewListener, OnClickListener, OnScrollListener{
 	public Sub6_2_DBopenHelper favorite_mydb;
 	public SQLiteDatabase mdb;
@@ -82,7 +84,9 @@ public class Sub6_2_Activity extends Activity implements OnItemClickListener, Ad
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		context = this;
 //		init_admob_naive();
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 		layout_listview_favorite = (LinearLayout)findViewById(R.id.layout_listview_favorite);
 		layout_nodata = (LinearLayout)findViewById(R.id.layout_nodata);
 		action_layout = (LinearLayout)findViewById(R.id.action_layout);

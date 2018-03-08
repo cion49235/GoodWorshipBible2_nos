@@ -10,6 +10,8 @@ import com.admixer.AdViewListener;
 import com.admixer.InterstitialAd;
 import com.admixer.InterstitialAdListener;
 import com.good.worshipbible.nos.R;
+import com.good.worshipbible.nos.data.Const;
+import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.good.worshipbible.nos.util.SimpleCrypto;
 import com.good.worshipbible.nos.util.TimeUtil;
 import com.good.worshipbible.nos.util.Utils;
@@ -35,7 +37,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.PhoneStateListener;
 import android.telephony.TelephonyManager;
-import android.util.FloatMath;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -83,7 +84,9 @@ public class Sub3_2_Activity extends Activity implements OnTouchListener, AdView
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 		context = this;
-		addBannerView();
+		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        	addBannerView();    		
+    	}
 //		init_admob_naive();
 		mediaPlayer = new MediaPlayer();
 		hymn_control_panel_layout = (RelativeLayout)findViewById(R.id.hymn_control_panel_layout);
@@ -604,8 +607,10 @@ public class Sub3_2_Activity extends Activity implements OnTouchListener, AdView
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if(event.getKeyCode() == KeyEvent.KEYCODE_BACK){
-			Toast.makeText(context, context.getString(R.string.txt_after_ad), Toast.LENGTH_LONG).show();
-			addInterstitialView();
+			if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+				Toast.makeText(context, context.getString(R.string.txt_after_ad), Toast.LENGTH_LONG).show();
+				addInterstitialView();				
+			}
 			 handler.postDelayed(new Runnable() {
 				 @Override
 				 public void run() {

@@ -94,7 +94,7 @@ public class IntroActivity extends Activity{
 //        russiansynodal_Async = new RUSSIANSYNODAL_Async(russiansynodal_path);
 //        russiansynodal_Async.execute();
         
-//        billing_process();//인앱정기결제체크
+        billing_process();//인앱정기결제체크
         
         handler = new Handler();
         handler.postDelayed(runnable, 2000);

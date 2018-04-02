@@ -94,7 +94,7 @@ public class IntroActivity extends Activity{
 //        russiansynodal_Async = new RUSSIANSYNODAL_Async(russiansynodal_path);
 //        russiansynodal_Async.execute();
         
-        billing_process();//인앱정기결제체크
+//        billing_process();//인앱정기결제체크
         
         handler = new Handler();
         handler.postDelayed(runnable, 2000);
@@ -1043,14 +1043,18 @@ public class IntroActivity extends Activity{
     Runnable runnable = new Runnable() {
 		@Override
 		public void run() {
-			if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")) {
+			/*if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")) {
 				Intent intent = new Intent(context, Sub1_Activity.class);
 				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				finish();
 			}else {
 				show_inapp_alert();	
-			}
+			}*/
+			Intent intent = new Intent(context, Sub1_Activity.class);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			startActivity(intent);
+			finish();
 			//fade_animation
 			overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
 		}

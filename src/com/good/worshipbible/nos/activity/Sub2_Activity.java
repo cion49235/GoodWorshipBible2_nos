@@ -310,9 +310,9 @@ public class Sub2_Activity extends Activity implements OnClickListener,OnItemCli
         }
 //        mediaPlayer = new MediaPlayer();
         voicepause_mydb = new VoicePause_DBOpenHelper(this);
-        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        /*if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
         	addBannerView();    		
-    	}
+    	}*/
 //        init_admob_naive();
         String[] kwon_kbb = {context.getString(R.string.txt_kwon_kbb40),
         		context.getString(R.string.txt_kwon_kbb41),

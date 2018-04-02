@@ -394,9 +394,9 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         }
 //        mediaPlayer = new MediaPlayer();
         voicepause_mydb = new VoicePause_DBOpenHelper(this);
-        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        /*if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
         	addBannerView();    		
-    	}
+    	}*/
 //        init_admob_naive();
         
 //      Custom Popup Ω√¿€

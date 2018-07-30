@@ -22,6 +22,8 @@ import com.admixer.AdView;
 import com.admixer.AdViewListener;
 import com.admixer.InterstitialAd;
 import com.admixer.InterstitialAdListener;
+import com.anjlab.android.iab.v3.BillingProcessor;
+import com.anjlab.android.iab.v3.TransactionDetails;
 import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.ccm.db.helper.VoicePause_DBOpenHelper;
 import com.good.worshipbible.nos.data.Const;
@@ -298,6 +300,7 @@ public class Sub2_Activity extends Activity implements OnClickListener,OnItemCli
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB, "ca-app-pub-4637651494513698/9745545364");
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
         context = this;
+        billing_process();//인앱정기결제체크
         voice_control_panel_layout = (RelativeLayout)findViewById(R.id.voice_control_panel_layout);
         try{
         	String language = context.getResources().getConfiguration().locale.toString();
@@ -2763,9 +2766,10 @@ public class Sub2_Activity extends Activity implements OnClickListener,OnItemCli
     		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
     		startActivity(intent);
     	}else if(view == Bottom_07){
-    		if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+    		/*if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
     			addInterstitialView();    			
-    		}
+    		}*/
+    		show_inapp_alert();
     	}else if(view == Bottom_08){
     		settings = getSharedPreferences(context.getString(R.string.txt_sharedpreferences_string), MODE_PRIVATE);
     		edit = settings.edit();
@@ -4526,6 +4530,74 @@ public class Sub2_Activity extends Activity implements OnClickListener,OnItemCli
 			}
 		}
    }
+    
+    private void show_inapp_alert() {
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setCancelable(false);
+		builder.setTitle(context.getString(R.string.txt_inapp_alert_title));
+		builder.setMessage(context.getString(R.string.txt_inapp_alert_ment));
+		builder.setInverseBackgroundForced(true);
+		builder.setNeutralButton(context.getString(R.string.txt_inapp_alert_yes), new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int whichButton){
+				bp.subscribe(Sub2_Activity.this,SUBSCRIPTION_ID);
+			}
+		});
+		builder.setNegativeButton(context.getString(R.string.txt_inapp_alert_no), new DialogInterface.OnClickListener(){
+			public void onClick(DialogInterface dialog, int whichButton){
+             	dialog.dismiss();
+			}
+		});
+		AlertDialog myAlertDialog = builder.create();
+		myAlertDialog.show();
+    }
+    
+    
+    private BillingProcessor bp;
+    private static final String SUBSCRIPTION_ID = "good.worshipbible.inapp.month";
+    private static final String LICENSE_KEY = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAmriBNo95wtn/tfq5izqI2jbgUz4dm1M3R3v239zJ/Zzq4a3dk9KXv/yknNUMtBvC/KbL+kj7k2Rs+TnHUgLzfa7oPHNQ0qJNVUpTl+1RUVLY64YZGw8O91ykn6g5CRsG70V9156NWOAlrDSlgzqqJafeRWc3ggrS2TfvLjeC3ffCu6om2yBFGPmpag2rfjVBCr+QtU+xmF+v3F/K0+AsPN7wOTBURlj+upnBD0uGG5GDqF/mD6Thv2kyUvO75DJXRhQDCaKkNHb+rvIUzizWLpST6j4UczADj+YzaaqkPw3+/ssxb9Ypc3yU/QNVrfchc7Q7Y4W1shBRtfq0EiyI2wIDAQAB";
+    private void billing_process(){
+        if(!BillingProcessor.isIabServiceAvailable(this)) {
+        }
+        bp = new BillingProcessor(this, LICENSE_KEY, new BillingProcessor.IBillingHandler() {
+            @Override
+            public void onBillingInitialized() {
+                try{
+                    bp.loadOwnedPurchasesFromGoogle();
+                    Log.i("dsu", "isSubscriptionUpdateSupported : " + bp.isSubscriptionUpdateSupported());
+                    Log.i("dsu", "getSubscriptionTransactionDetails : " + bp.getSubscriptionTransactionDetails(SUBSCRIPTION_ID));
+                    Log.i("dsu", "isSubscribed : " + bp.isSubscribed(SUBSCRIPTION_ID));
+                    Log.i("dsu", "autoRenewing : " + bp.getSubscriptionTransactionDetails(SUBSCRIPTION_ID).purchaseInfo.purchaseData.autoRenewing);
+                    Log.i("dsu", "purchaseTime : " + bp.getSubscriptionTransactionDetails(SUBSCRIPTION_ID).purchaseInfo.purchaseData.purchaseTime);
+                    Log.i("dsu", "purchaseState : " + bp.getSubscriptionTransactionDetails(SUBSCRIPTION_ID).purchaseInfo.purchaseData.purchaseState);
+                    PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Boolean.toString(bp.getSubscriptionTransactionDetails(SUBSCRIPTION_ID).purchaseInfo.purchaseData.autoRenewing));
+                }catch (NullPointerException e){
+                }
+            }
+            
+            @Override
+            public void onPurchaseHistoryRestored() {
+//            	showToast("onPurchaseHistoryRestored");
+                for(String sku : bp.listOwnedProducts()){
+                    Log.i("dsu", "Owned Managed Product: " + sku);
+//                    showToast("Owned Managed Product: " + sku);
+                }
+                for(String sku : bp.listOwnedSubscriptions()){
+                    Log.i("dsu", "Owned Subscription: " + sku);
+//                    showToast("Owned Subscription : " + sku);
+                }
+            }
+
+			@Override
+			public void onProductPurchased(String arg0, TransactionDetails arg1) {
+				// TODO Auto-generated method stub
+				
+			}
+			@Override
+			public void onBillingError(int arg0, Throwable arg1) {
+
+			}
+        });
+    }
     
     public static Thread autoscroll_thread = null;
 	void autoScrollTask() {

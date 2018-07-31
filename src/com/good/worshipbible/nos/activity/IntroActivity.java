@@ -7,11 +7,17 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.SocketTimeoutException;
+import java.net.URL;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 
+import org.apache.http.client.ClientProtocolException;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -57,6 +63,10 @@ public class IntroActivity extends Activity{
         setContentView(R.layout.activity_intro);
         context = this;
         retry_alert = true;
+        
+        adstatus_async = new Adstatus_Async();
+        adstatus_async.execute();	 
+        
         String kkk_path = context.getString(R.string.txt_kkk_path);
         String kbb_path = context.getString(R.string.txt_kbb_path);
     	String kjv_path = context.getString(R.string.txt_kjv_path);
@@ -146,6 +156,91 @@ public class IntroActivity extends Activity{
 			}
         });
     }
+    
+    private Adstatus_Async adstatus_async = null;
+    public class Adstatus_Async extends AsyncTask<String, Integer, String> {
+        int ad_id;
+        String ad_status;
+        String ad_time;
+        public Adstatus_Async(){
+        }
+        @Override
+        protected String doInBackground(String... params) {
+            String sTag;
+            try{
+            	String str = "http://cion49235.cafe24.com/cion49235/goodworshipbible2_nos/ad_status.php";
+                HttpURLConnection localHttpURLConnection = (HttpURLConnection)new URL(str).openConnection();
+                HttpURLConnection.setFollowRedirects(false);
+                localHttpURLConnection.setConnectTimeout(15000);
+                localHttpURLConnection.setReadTimeout(15000);
+                localHttpURLConnection.setRequestMethod("GET");
+                localHttpURLConnection.connect();
+                InputStream inputStream = new URL(str).openStream();
+                XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
+                XmlPullParser xpp = factory.newPullParser();
+                xpp.setInput(inputStream, "EUC-KR"); 
+                int eventType = xpp.getEventType();
+                while (eventType != XmlPullParser.END_DOCUMENT) {
+                    if (eventType == XmlPullParser.START_DOCUMENT) {
+                    }else if (eventType == XmlPullParser.END_DOCUMENT) {
+                    }else if (eventType == XmlPullParser.START_TAG){
+                        sTag = xpp.getName();
+                        if(sTag.equals("Ad")){
+                            ad_id = Integer.parseInt(xpp.getAttributeValue(null, "ad_id") + "");
+                        }else if(sTag.equals("ad_status")){
+                            ad_status = xpp.nextText()+"";
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, ad_status);
+                        }else if(sTag.equals("ad_time")){
+                            ad_time = xpp.nextText()+"";
+                            Log.i("dsu", "ad_time===>" + ad_time);
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_AD_TIME, ad_time);
+                        }
+                    } else if (eventType == XmlPullParser.END_TAG){
+                        sTag = xpp.getName();
+                        if(sTag.equals("Finish")){
+
+                        }
+                    } else if (eventType == XmlPullParser.TEXT) {
+                    }
+                    eventType = xpp.next();
+                }
+            }
+            catch (SocketTimeoutException localSocketTimeoutException)
+            {
+            }
+            catch (ClientProtocolException localClientProtocolException)
+            {
+            }
+            catch (IOException localIOException)
+            {
+            }
+            catch (Resources.NotFoundException localNotFoundException)
+            {
+            }
+            catch (NullPointerException NullPointerException)
+            {
+            }
+            catch (Exception e)
+            {
+            }
+            return ad_status;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+        @Override
+        protected void onPostExecute(String ad_status) {
+            super.onPostExecute(ad_status);
+            
+        }
+        @Override
+        protected void onProgressUpdate(Integer... values) {
+            super.onProgressUpdate(values);
+        }
+    }
+    
     
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();

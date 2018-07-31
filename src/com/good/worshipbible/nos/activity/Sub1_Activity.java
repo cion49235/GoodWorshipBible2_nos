@@ -27,6 +27,7 @@ import com.admixer.InterstitialAdListener;
 import com.admixer.PopupInterstitialAdOption;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
+import com.co.shallwead.sdk.api.ShallWeAd;
 import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.ccm.db.helper.VoicePause_DBOpenHelper;
 import com.good.worshipbible.nos.data.Const;
@@ -368,6 +369,10 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         context = this;
         retry_alert = true;
         billing_process();//인앱정기결제체크
+        
+        ShallWeAd.initialize(this); //쉘위ad광고
+        interstitialAdOpen();
+        
 //start=========================================================================================================        
 //        settings = getSharedPreferences(context.getString(R.string.txt_sharedpreferences_string), MODE_PRIVATE);
 //    	ischeck_security01 = settings.getBoolean("checkbox_security01", ischeck_security01);
@@ -397,9 +402,9 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         }
 //        mediaPlayer = new MediaPlayer();
         voicepause_mydb = new VoicePause_DBOpenHelper(this);
-        /*if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
+        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
         	addBannerView();    		
-    	}*/
+    	}
 //        init_admob_naive();
         
 //      Custom Popup 시작
@@ -559,6 +564,41 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 			}
 		}, PhoneStateListener.LISTEN_CALL_STATE); 
     }
+	
+	
+	public void interstitialAdOpen()
+	{
+		ShallWeAd.showInterstitialAd(this, new ShallWeAd.ShallWeAdListener() {
+
+			@Override
+			public void onResultInterstitial(boolean result, int reason)
+			{
+				switch (reason)
+				{
+				case ShallWeAd.NOT_EXIST_AD_INFO:
+					break;
+				case ShallWeAd.NOT_PASS_SHOW_TIME:
+					break;
+				case ShallWeAd.ALL_APPS_INSTALLED:
+					break;
+				case ShallWeAd.SUCCESS_SHOW_AD:
+					break;
+				case ShallWeAd.ERROR:
+					break;
+				default:
+					break;
+				}
+			}
+			@Override
+			public void onResultExitDialog(boolean result, int reason)
+			{
+			}
+			@Override
+			public void onInterstitialClose(int selectItem)
+			{
+			}
+		});
+	}
 	
 	private void auto_service() {
         Intent intent = new Intent(context, AutoServiceActivity.class);
@@ -9002,9 +9042,10 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 						 handler.postDelayed(new Runnable() {
 							 @Override
 							 public void run() {
-								 is_finish = false;
+								 /*is_finish = false;
 								 PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
-								 finish();
+								 finish();*/
+								 exitAdView();
 							 }
 						 },0);
 					 }catch(Exception e){
@@ -9013,6 +9054,52 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 	            return false;
 			 }
 		return super.onKeyDown(keyCode, event);
+	}
+	
+	LinearLayout exitBanner;
+	public void exitAdView() {
+		exitBanner = ShallWeAd.getExitAdView(this, new ShallWeAd.ShallWeAdListener() {
+
+			@Override
+			public void onResultInterstitial(boolean result, int reason) {
+				// TODO Auto-generated method stub
+			}
+
+			@Override
+			public void onResultExitDialog(boolean result, int reason) {
+				// TODO Auto-generated method stub
+				Log.e("", "onResultExitDialog");
+			}
+
+			@Override
+			public void onInterstitialClose(int selectedItem) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		createDialog();
+	}
+	
+	private void createDialog() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setCancelable(false);
+        builder.setMessage(context.getString(R.string.txt_finish_ment));
+        builder.setPositiveButton(context.getString(R.string.txt_finish_yes), new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int whichButton){
+            	 is_finish = false;
+				 PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
+				 finish();
+            	dialog.dismiss();
+            }
+        });
+        
+        builder.setNegativeButton(context.getString(R.string.txt_finish_no), new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int whichButton){
+            	dialog.dismiss();
+            }
+        });
+        AlertDialog myAlertDialog = builder.setView(exitBanner).create();
+        myAlertDialog.show();	 
 	}
 	
 	public class DownloadDBAsync extends AsyncTask<String, Integer, String>{

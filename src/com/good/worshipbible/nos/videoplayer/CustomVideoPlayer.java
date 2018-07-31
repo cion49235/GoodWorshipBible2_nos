@@ -948,7 +948,7 @@ public class CustomVideoPlayer extends Activity implements OnCompletionListener,
 	public void onInterstitialAdClosed(InterstitialAd arg0) {
 //		Log.i("dsu", "Àü¸é±¤°í ´ÝÀ½ : arg0 : " + arg0) ;
 		interstialAd = null;
-		finish();
+		onDestroy();
 	}
 
 	@Override
@@ -956,6 +956,7 @@ public class CustomVideoPlayer extends Activity implements OnCompletionListener,
 			InterstitialAd arg2) {
 //		Log.i("dsu", "Àü¸é±¤°í ½ÇÆÐ : arg0 : " + arg0+"\n" + arg1) ;
 		interstialAd = null;
+		onDestroy();
 	}
 
 	@Override
@@ -988,12 +989,12 @@ public class CustomVideoPlayer extends Activity implements OnCompletionListener,
 					Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
 					addInterstitialView();					
 				}
-				handler.postDelayed(new Runnable() {
+				/*handler.postDelayed(new Runnable() {
 					 @Override
 					 public void run() {
 						 onDestroy();
 					 }
-				 },2500);
+				 },2500);*/
 				return false;
 			}
 		}

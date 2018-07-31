@@ -11,6 +11,7 @@ public class PreferenceUtil {
 	
 	private static final String SHARED_FILE_TITLE = "pref_goodworshipbible";
 	public final static String PREF_AD_VIEW = "ad_view";
+	public final static String PREF_AD_STATUS = "ad_status";
 	public final static String PREF_AD_TIME = "ad_time";
 	public final static String PREF_ISSUBSCRIBED = "pref_issubscribed";
 	//==============================================================================================//

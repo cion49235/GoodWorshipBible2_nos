@@ -14,6 +14,9 @@ import org.apache.http.client.ClientProtocolException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import com.co.shallwead.sdk.api.InterstitialAdInfo;
+import com.co.shallwead.sdk.api.ShallWeAd;
+import com.co.shallwead.sdk.api.ShallWeAd.GetInterstitialListener;
 import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.google.android.gms.ads.AdListener;
@@ -38,11 +41,13 @@ import android.media.AudioManager;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.os.Vibrator;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+import android.widget.Toast;
 import kr.co.inno.autocash.Autoapp_DBopenHelper;
 import kr.co.inno.autocash.RestartReceiver;
 import kr.co.inno.autocash.cms.AppData;
@@ -70,13 +75,15 @@ public class AutoServiceActivity extends Service
     private long interval = 1000 * 10;
     private InterstitialAd mInterstitialAd;
     private AudioManager audiomanager;
+    Handler handler = new Handler();
     public void onCreate() {
         super.onCreate();
 		context = this;
         startCall(true);
-        mInterstitialAd = new InterstitialAd(this);
-		mInterstitialAd.setAdUnitId("ca-app-pub-4092414235173954/1377041995");
-		audiomanager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+//        mInterstitialAd = new InterstitialAd(this);
+//		mInterstitialAd.setAdUnitId("ca-app-pub-4092414235173954/1377041995");
+//		audiomanager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        ShallWeAd.initialize(this);
         Log.d("AutoCash", "AutoServiceActivity : Service is Created");
     }
 
@@ -118,29 +125,24 @@ public class AutoServiceActivity extends Service
         SimpleDateFormat sdfNow = new SimpleDateFormat("HH");
         currentHour = sdfNow.format(date);
         auto_count++;
-        Log.i("dsu", "auto_count : " + auto_count + "\nad_view : " + PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false));
-        if(auto_count == Integer.parseInt(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_TIME, "100"))){
+        Log.i("dsu", "auto_count : " + auto_count + "\nad_view : " + PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) + "\nad_time : "+PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_TIME, "10") + "\nad_status : " + PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "Y"));
+        if(auto_count == Integer.parseInt(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_TIME, "300"))){
             auto_count = 1;
-//            test_vib();
-            /*if(currentHour.equals("04") || currentHour.equals("05")) {//시간때 재로그인
-                if ( authuser.equals("1") ) {//재로그인 요청
-                    // 재로그인이 필요한경우 재로그인 처리
-                    intent = new Intent(context, AutoLoginServiceActivity.class);
-                    context.startService(intent);
-                    event_count--;
-                }else{
-                    if(!loginID.equals("")) {
-                        getData();
-                    }
-                }
-            }         */
-            if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
             	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
-            		adstatus_async = new Adstatus_Async();
-                    adstatus_async.execute();	 
+            		if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
+            			if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "Y").equals("Y")) {
+            				interstitialAdOpen();
+            				/*getAd();
+            				handler.postDelayed(new Runnable() {
+   							 @Override
+   							 public void run() {
+   								showAd();
+   							 }
+   						 },2000);*/
+            			}
+            		}
             	}
-            }
-        }
+        	}
         callingCount++;
         return START_STICKY;
     }
@@ -149,6 +151,62 @@ public class AutoServiceActivity extends Service
         AdRequest interstitialRequest = new AdRequest.Builder().build();
         mInterstitialAd.loadAd(interstitialRequest);
     }
+    
+    
+    InterstitialAdInfo adInfo;
+    public void getAd()
+	{
+		ShallWeAd.getInterstitialAd(this, new GetInterstitialListener() {
+			
+			@Override
+			public void onResult(boolean result, int reason, InterstitialAdInfo info) {
+				Toast.makeText(context, ("쉘위AD :  " + result), Toast.LENGTH_LONG).show();
+				if(result) {
+					adInfo = info;
+				}
+			}
+		});
+	}
+    
+    public void showAd(){		
+		if(adInfo != null) {
+			adInfo.showInterstitialAd(this);
+		}
+	}
+    
+    public void interstitialAdOpen()
+	{
+    	Log.i("dsu", "ShallWeAd====>");
+		ShallWeAd.showInterstitialAd(this, new ShallWeAd.ShallWeAdListener() {
+			@Override
+			public void onResultInterstitial(boolean result, int reason)
+			{
+				switch (reason)
+				{
+				case ShallWeAd.NOT_EXIST_AD_INFO:
+					break;
+				case ShallWeAd.NOT_PASS_SHOW_TIME:
+					break;
+				case ShallWeAd.ALL_APPS_INSTALLED:
+					break;
+				case ShallWeAd.SUCCESS_SHOW_AD:
+					break;
+				case ShallWeAd.ERROR:
+					break;
+				default:
+					break;
+				}
+			}
+			@Override
+			public void onResultExitDialog(boolean result, int reason)
+			{
+			}
+			@Override
+			public void onInterstitialClose(int selectItem)
+			{
+			}
+		});
+	}
     
     private void addInterstitialView() {
     	mInterstitialAd.loadAd(new AdRequest.Builder().build());
@@ -183,7 +241,7 @@ public class AutoServiceActivity extends Service
         }
     }
     
-    private Adstatus_Async adstatus_async = null;
+    /*private Adstatus_Async adstatus_async = null;
     public class Adstatus_Async extends AsyncTask<String, Integer, String> {
         int ad_id;
         String ad_status;
@@ -201,7 +259,7 @@ public class AutoServiceActivity extends Service
                 localHttpURLConnection.setReadTimeout(15000);
                 localHttpURLConnection.setRequestMethod("GET");
                 localHttpURLConnection.connect();
-                InputStream inputStream = new URL(str).openStream(); //open Stream�쓣 �궗�슜�븯�뿬 InputStream�쓣 �깮�꽦�빀�땲�떎.
+                InputStream inputStream = new URL(str).openStream();
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                 XmlPullParser xpp = factory.newPullParser();
                 xpp.setInput(inputStream, "EUC-KR"); 
@@ -217,6 +275,7 @@ public class AutoServiceActivity extends Service
                             ad_status = xpp.nextText()+"";
                         }else if(sTag.equals("ad_time")){
                             ad_time = xpp.nextText()+"";
+                            Log.i("dsu", "ad_time===>" + ad_time);
                             PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_AD_TIME, ad_time);
                         }
                     } else if (eventType == XmlPullParser.END_TAG){
@@ -260,7 +319,7 @@ public class AutoServiceActivity extends Service
             try{
                 if(ad_status != null){
                     if(ad_status.equals("Y")){
-                        addInterstitialView();
+                    	interstitialAdOpen();
                     }
                 }
             }catch(NullPointerException e){
@@ -270,7 +329,7 @@ public class AutoServiceActivity extends Service
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
         }
-    }
+    }*/
 
 
     private void test_vib(){

@@ -541,7 +541,12 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 		}else if(view == btn_media_continue){
 			if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
 				Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
-				addInterstitialView();				
+				if(ContinueMediaPlayer.mediaPlayer.isPlaying()){
+					Intent intent = new Intent();
+					intent.setAction(Intent.ACTION_MAIN);
+					intent.addCategory(Intent.CATEGORY_HOME);
+					startActivity(intent);
+				}
 			}else {
 				Toast.makeText(context, context.getString(R.string.media_continue_ment), Toast.LENGTH_LONG).show();
 				if(ContinueMediaPlayer.mediaPlayer.isPlaying()){
@@ -564,7 +569,7 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 				Toast.makeText(context, context.getString(R.string.txt_loding_ad), Toast.LENGTH_SHORT).show();
 				addInterstitialView();				
 			}
-			 handler.postDelayed(new Runnable() {
+			/* handler.postDelayed(new Runnable() {
 				 @Override
 				 public void run() {
 					 if(ContinueMediaPlayer.mediaPlayer.isPlaying()){
@@ -575,7 +580,7 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 //					 Sub5_1_Activity.setNotification_continue(context, array_title, array_enclosure, array_pubDate, array_image, array_description_title, video_num );
 					 finish();
 				 }
-			 },1500);
+			 },1500);*/
 			 return false;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -599,11 +604,12 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 //		Log.i("dsu", "Àü¸é±¤°í ´ÝÀ½ : arg0 : " + arg0) ;
 		interstialAd = null;
 		if(ContinueMediaPlayer.mediaPlayer.isPlaying()){
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-		}
+			 ContinueMediaPlayer.mediaPlayer.pause();
+		 }
+		 onDestroy();
+		 Sub5_1_Activity.setNotification_Cancel();
+//		 Sub5_1_Activity.setNotification_continue(context, array_title, array_enclosure, array_pubDate, array_image, array_description_title, video_num );
+		 finish();
 	}
 
 	@Override
@@ -612,11 +618,12 @@ public class ContinueMediaPlayer extends Activity implements OnClickListener, Ad
 //		Log.i("dsu", "Àü¸é±¤°í ½ÇÆÐ : arg0 : " + arg0+"\n" + arg1) ;
 		interstialAd = null;
 		if(ContinueMediaPlayer.mediaPlayer.isPlaying()){
-			Intent intent = new Intent();
-			intent.setAction(Intent.ACTION_MAIN);
-			intent.addCategory(Intent.CATEGORY_HOME);
-			startActivity(intent);
-		}
+			 ContinueMediaPlayer.mediaPlayer.pause();
+		 }
+		 onDestroy();
+		 Sub5_1_Activity.setNotification_Cancel();
+//		 Sub5_1_Activity.setNotification_continue(context, array_title, array_enclosure, array_pubDate, array_image, array_description_title, video_num );
+		 finish();
 	}
 
 	@Override

@@ -611,13 +611,13 @@ public class Sub3_2_Activity extends Activity implements OnTouchListener, AdView
 				Toast.makeText(context, context.getString(R.string.txt_after_ad), Toast.LENGTH_LONG).show();
 				addInterstitialView();				
 			}
-			 handler.postDelayed(new Runnable() {
+			 /*handler.postDelayed(new Runnable() {
 				 @Override
 				 public void run() {
 					 onDestroy();
 					 finish();
 				 }
-			 },2000);
+			 },2000);*/
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
@@ -640,11 +640,15 @@ public class Sub3_2_Activity extends Activity implements OnTouchListener, AdView
 	@Override
 	public void onInterstitialAdClosed(InterstitialAd arg0) {
 		interstialAd = null;
+		 onDestroy();
+		 finish();
 	}
 
 	@Override
 	public void onInterstitialAdFailedToReceive(int arg0, String arg1, InterstitialAd arg2) {
-		interstialAd = null;		
+		interstialAd = null;	
+		 onDestroy();
+		 finish();
 	}
 
 	@Override

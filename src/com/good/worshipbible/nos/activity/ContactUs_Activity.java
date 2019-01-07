@@ -114,7 +114,7 @@ public class ContactUs_Activity extends Activity implements InterstitialAdListen
 		webview.setWebViewClient(new WebViewClientClass());		
 		webview.setWebChromeClient(new WebChromeClientClass());
 		try {
-			String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.txt_contactus_url));
+			String get_data = context.getString(R.string.url_detail_question);
 			webview.loadUrl(get_data);
 		} catch (Exception e) {
 		}

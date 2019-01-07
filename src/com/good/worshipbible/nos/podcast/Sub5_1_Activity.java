@@ -474,7 +474,7 @@ public class Sub5_1_Activity extends Activity implements OnItemClickListener, On
 			protected String doInBackground(String... params) {
 				String sTag;
 				try{
-				   String data = Crypto.decrypt(Utils.data, context.getString(R.string.txt_str8));
+				   String data = context.getString(R.string.url_detail_podcast);
 		           String str = data+i+".php?view="+view_num;
 //		           Log.i("dsu", "str : " + str);
 		           HttpURLConnection localHttpURLConnection = (HttpURLConnection)new URL(str).openConnection();
@@ -551,9 +551,7 @@ public class Sub5_1_Activity extends Activity implements OnItemClickListener, On
 		         catch (NullPointerException NullPointerException)
 		         {
 		         }
-				 catch (JSONException e) 
-				 {
-				 } 
+				 
 				 catch (Exception e) 
 				 {
 				 }

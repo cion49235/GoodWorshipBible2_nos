@@ -25,6 +25,14 @@
                  android:singleLine="true"
                  android:gravity="center"/>
 		</LinearLayout>
+		
+    	<RelativeLayout
+          android:id="@+id/ad_layout"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" 
+          android:layout_gravity="center_horizontal"> 
+    	</RelativeLayout>
+    	
 		<RelativeLayout
 	        android:layout_width="fill_parent"
 	        android:layout_height="0dip"
@@ -111,12 +119,6 @@
 		          android:layout_gravity="center_horizontal"
 		          android:gravity="center"> 
 		    </RelativeLayout>		
-	<RelativeLayout
-          android:id="@+id/ad_layout"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content" 
-          android:layout_gravity="center_horizontal"> 
-    </RelativeLayout>
      <LinearLayout android:gravity="bottom"
          android:layout_width="fill_parent" 
          android:layout_height="wrap_content">

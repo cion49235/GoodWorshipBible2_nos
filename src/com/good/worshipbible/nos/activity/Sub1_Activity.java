@@ -6208,7 +6208,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_jpnnew);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_jpnnew);
     										String input_db_path = context.getString(R.string.txt_jpnnew_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6230,7 +6230,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_ckb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_ckb);
     										String input_db_path = context.getString(R.string.txt_ckb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6254,7 +6254,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         										String file_name = context.getString(R.string.txt_input_frenchdarby);
         										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
         												+ context.getString(R.string.sub5_txt9);
-        										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+        										String get_data = context.getString(R.string.url_detail_language_db);
         										String url_path = get_data + context.getString(R.string.txt_input_frenchdarby);
         										String input_db_path = context.getString(R.string.txt_frenchdarby_path);
         										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6280,7 +6280,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_germanluther);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_germanluther);
     										String input_db_path = context.getString(R.string.txt_germanluther_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6302,7 +6302,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_gst);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_gst);
     										String input_db_path = context.getString(R.string.txt_gst_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6324,7 +6324,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_indonesianbaru);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_indonesianbaru);
     										String input_db_path = context.getString(R.string.txt_indonesianbaru_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6346,7 +6346,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_portugal);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_portugal);
     										String input_db_path = context.getString(R.string.txt_portugal_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6368,7 +6368,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_russiansynodal);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_russiansynodal);
     										String input_db_path = context.getString(R.string.txt_russiansynodal_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6390,7 +6390,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_alb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_alb);
     										String input_db_path = context.getString(R.string.txt_alb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6412,7 +6412,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_asv);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_asv);
     										String input_db_path = context.getString(R.string.txt_asv_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6434,7 +6434,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_avs);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_avs);
     										String input_db_path = context.getString(R.string.txt_avs_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6456,7 +6456,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_barun);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_barun);
     										String input_db_path = context.getString(R.string.txt_barun_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6478,7 +6478,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_chb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_chb);
     										String input_db_path = context.getString(R.string.txt_chb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6500,7 +6500,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_chg);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_chg);
     										String input_db_path = context.getString(R.string.txt_chg_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6522,7 +6522,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_cjb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_cjb);
     										String input_db_path = context.getString(R.string.txt_cjb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6544,7 +6544,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_ckc);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_ckc);
     										String input_db_path = context.getString(R.string.txt_ckc_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6566,7 +6566,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_ckg);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_ckg);
     										String input_db_path = context.getString(R.string.txt_ckg_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6588,7 +6588,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_cks);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_cks);
     										String input_db_path = context.getString(R.string.txt_cks_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6610,7 +6610,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_hebbhs);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_hebbhs);
     										String input_db_path = context.getString(R.string.txt_hebbhs_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6632,7 +6632,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_hebmod);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_hebmod);
     										String input_db_path = context.getString(R.string.txt_hebmod_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6654,7 +6654,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_hebwlc);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_hebwlc);
     										String input_db_path = context.getString(R.string.txt_hebwlc_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6676,7 +6676,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_indianhindi);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_indianhindi);
     										String input_db_path = context.getString(R.string.txt_indianhindi_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6698,7 +6698,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_indiantamil);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_indiantamil);
     										String input_db_path = context.getString(R.string.txt_indiantamil_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6720,7 +6720,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_jpnold);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_jpnold);
     										String input_db_path = context.getString(R.string.txt_jpnold_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6742,7 +6742,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_reina);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_reina);
     										String input_db_path = context.getString(R.string.txt_reina_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6764,7 +6764,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_tagalog);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_tagalog);
     										String input_db_path = context.getString(R.string.txt_tagalog_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6786,7 +6786,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_tkh);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_tkh);
     										String input_db_path = context.getString(R.string.txt_tkh_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6808,7 +6808,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_web);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_web);
     										String input_db_path = context.getString(R.string.txt_web_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible_type", which, input_db_path);
@@ -6892,7 +6892,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_jpnnew);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_jpnnew);
     										String input_db_path = context.getString(R.string.txt_jpnnew_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -6914,7 +6914,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_ckb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_ckb);
     										String input_db_path = context.getString(R.string.txt_ckb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -6938,7 +6938,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         										String file_name = context.getString(R.string.txt_input_frenchdarby);
         										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
         												+ context.getString(R.string.sub5_txt9);
-        										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+        										String get_data = context.getString(R.string.url_detail_language_db);
         										String url_path = get_data + context.getString(R.string.txt_input_frenchdarby);
         										String input_db_path = context.getString(R.string.txt_frenchdarby_path);
         										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -6964,7 +6964,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_germanluther);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_germanluther);
     										String input_db_path = context.getString(R.string.txt_germanluther_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -6986,7 +6986,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_gst);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_gst);
     										String input_db_path = context.getString(R.string.txt_gst_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7008,7 +7008,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_indonesianbaru);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_indonesianbaru);
     										String input_db_path = context.getString(R.string.txt_indonesianbaru_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7030,7 +7030,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_portugal);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_portugal);
     										String input_db_path = context.getString(R.string.txt_portugal_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7052,7 +7052,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_russiansynodal);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_russiansynodal);
     										String input_db_path = context.getString(R.string.txt_russiansynodal_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7074,7 +7074,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_alb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_alb);
     										String input_db_path = context.getString(R.string.txt_alb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7096,7 +7096,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_asv);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_asv);
     										String input_db_path = context.getString(R.string.txt_asv_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7118,7 +7118,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_avs);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_avs);
     										String input_db_path = context.getString(R.string.txt_avs_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7140,7 +7140,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_barun);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_barun);
     										String input_db_path = context.getString(R.string.txt_barun_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7162,7 +7162,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_chb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_chb);
     										String input_db_path = context.getString(R.string.txt_chb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7184,7 +7184,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_chg);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_chg);
     										String input_db_path = context.getString(R.string.txt_chg_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7206,7 +7206,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_cjb);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_cjb);
     										String input_db_path = context.getString(R.string.txt_cjb_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7228,7 +7228,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_ckc);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_ckc);
     										String input_db_path = context.getString(R.string.txt_ckc_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7250,7 +7250,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_ckg);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_ckg);
     										String input_db_path = context.getString(R.string.txt_ckg_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7272,7 +7272,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_cks);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_cks);
     										String input_db_path = context.getString(R.string.txt_cks_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7294,7 +7294,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_hebbhs);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_hebbhs);
     										String input_db_path = context.getString(R.string.txt_hebbhs_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7316,7 +7316,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_hebmod);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_hebmod);
     										String input_db_path = context.getString(R.string.txt_hebmod_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7338,7 +7338,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_hebwlc);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_hebwlc);
     										String input_db_path = context.getString(R.string.txt_hebwlc_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7360,7 +7360,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_indianhindi);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_indianhindi);
     										String input_db_path = context.getString(R.string.txt_indianhindi_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7382,7 +7382,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_indiantamil);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_indiantamil);
     										String input_db_path = context.getString(R.string.txt_indiantamil_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7404,7 +7404,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_jpnold);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_jpnold);
     										String input_db_path = context.getString(R.string.txt_jpnold_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7426,7 +7426,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_reina);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_reina);
     										String input_db_path = context.getString(R.string.txt_reina_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7448,7 +7448,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_tagalog);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_tagalog);
     										String input_db_path = context.getString(R.string.txt_tagalog_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7470,7 +7470,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_tkh);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_tkh);
     										String input_db_path = context.getString(R.string.txt_tkh_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -7492,7 +7492,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     										String file_name = context.getString(R.string.txt_input_web);
     										String dir_name = Environment.getExternalStorageDirectory().getAbsolutePath()
     												+ context.getString(R.string.sub5_txt9);
-    										String get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.download_db_url));
+    										String get_data = context.getString(R.string.url_detail_language_db);
     										String url_path = get_data + context.getString(R.string.txt_input_web);
     										String input_db_path = context.getString(R.string.txt_web_path);
     										downloadDBAsync = new DownloadDBAsync(context, file_name, url_path, dir_name, "bible2_type", which, input_db_path);
@@ -8549,9 +8549,9 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 				pref = getSharedPreferences(context.getString(R.string.txt_sharedpreferences_string), Activity.MODE_PRIVATE);
 				audio_speed = pref.getInt("audio_speed", audio_speed);
 				if(audio_speed == 0){
-					get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.txt_voicedata_url2));	
+					get_data = context.getString(R.string.url_detail_voicedata2);	
 				}else{
-					get_data = SimpleCrypto.decrypt(Utils.get_data, context.getString(R.string.txt_voicedata_url));
+					get_data = context.getString(R.string.url_detail_voicedata1);
 				}
 				mediaPlayer.setOnBufferingUpdateListener(this);
 				mediaPlayer.setOnCompletionListener(this);

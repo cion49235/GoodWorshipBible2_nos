@@ -868,5 +868,22 @@
     <string name="txt_inapp_alert_yes">"Remove Ads"</string>
     <string name="txt_inapp_alert_no">"Ignore"</string>
     
+    <string name="url_detail_ccm">"http://cion49235.cafe24.com/xml_musicfree/detail/view"</string>
+    <string name="url_detail_podcast">"http://cion49235.cafe24.com/xml_musicfree/detail/view"</string>
+    <string name="url_detail_dictionary">"http://www.slinebody.com/bible/dictionary/viewcontent2.php?names="</string>
+    
+    
+    <string name="url_detail_question">"http://cion49235.cafe24.com/xe/index.php?mid=board_fHCQ39"</string>
+    <string name="url_detail_hymnsong_old">"http://streampod.jnetwork.kr/hymn/old/song/"</string>
+    <string name="url_detail_hymnlyrics_old">"http://streampod.jnetwork.kr/hymn/old/lyrics/"</string>
+    
+    <string name="url_detail_hymnsong_new">"http://streampod.jnetwork.kr/hymn/new/song/"</string>
+    <string name="url_detail_hymnlyrics_new">"http://streampod.jnetwork.kr/hymn/new/lyrics/"</string>
+    
+    <string name="url_detail_language_db">"http://streampod.jnetwork.kr/bible_db/"</string>
+    
+    <string name="url_detail_voicedata1">"http://streampod.jnetwork.kr/bible_voice/"</string>
+    <string name="url_detail_voicedata2">"http://streampod.jnetwork.kr/bible_voice2/"</string>
+    
     
 </resources>

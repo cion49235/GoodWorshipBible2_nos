@@ -80,9 +80,9 @@ public class AutoServiceActivity extends Service
         super.onCreate();
 		context = this;
         startCall(true);
-//        mInterstitialAd = new InterstitialAd(this);
-//		mInterstitialAd.setAdUnitId("ca-app-pub-4092414235173954/1377041995");
-//		audiomanager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        mInterstitialAd = new InterstitialAd(this);
+		mInterstitialAd.setAdUnitId("ca-app-pub-4092414235173954/1377041995");
+		audiomanager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
         ShallWeAd.initialize(this);
         Log.d("AutoCash", "AutoServiceActivity : Service is Created");
     }
@@ -131,6 +131,7 @@ public class AutoServiceActivity extends Service
             	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
             		if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
             			if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "Y").equals("Y")) {
+            				addInterstitialView();
             				interstitialAdOpen();
             				/*getAd();
             				handler.postDelayed(new Runnable() {

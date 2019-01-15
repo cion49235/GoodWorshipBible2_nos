@@ -22,7 +22,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
 import com.good.worshipbible.nos.R;
-import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.good.worshipbible.nos.util.StringUtil;
 
@@ -33,11 +32,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.TextUtils;
 import android.util.Log;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
@@ -57,11 +58,21 @@ public class IntroActivity extends Activity{
 	public PORTUGAL_Async portugal_Async = null;
 	public RUSSIANSYNODAL_Async russiansynodal_Async = null;
 	public boolean retry_alert = false;
+	public static Activity activity;
+	public static LinearLayout bg_intro;
+    public static int background_type = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_intro);
         context = this;
+        activity = this;
+        bg_intro = (LinearLayout)findViewById(R.id.bg_intro);
+        if(getIntent().getIntExtra("backgournd_type", background_type) == 0){
+            bg_intro.setBackgroundResource(R.drawable.bg_intro_background);
+        }else{
+            bg_intro.setBackgroundColor(Color.TRANSPARENT);
+        }	
         retry_alert = true;
         
         adstatus_async = new Adstatus_Async();

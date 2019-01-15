@@ -17,6 +17,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import com.co.shallwead.sdk.api.InterstitialAdInfo;
 import com.co.shallwead.sdk.api.ShallWeAd;
 import com.co.shallwead.sdk.api.ShallWeAd.GetInterstitialListener;
+import com.good.worshipbible.nos.activity.IntroActivity;
 import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.google.android.gms.ads.AdListener;
@@ -32,9 +33,12 @@ import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.media.AudioManager;
@@ -126,20 +130,39 @@ public class AutoServiceActivity extends Service
         currentHour = sdfNow.format(date);
         auto_count++;
         Log.i("dsu", "auto_count : " + auto_count + "\nad_view : " + PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) + "\nad_time : "+PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_TIME, "10") + "\nad_status : " + PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "Y"));
-        if(auto_count == Integer.parseInt(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_TIME, "300"))){
+        if(auto_count == Integer.parseInt(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_TIME, "250"))){
             auto_count = 1;
             	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
             		if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
             			if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "Y").equals("Y")) {
-            				addInterstitialView();
-            				interstitialAdOpen();
-            				/*getAd();
-            				handler.postDelayed(new Runnable() {
-   							 @Override
-   							 public void run() {
-   								showAd();
-   							 }
-   						 },2000);*/
+                            String packageName = "";
+                            try {
+                                @SuppressWarnings("unused")
+								PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                                packageName = getPackageName();
+                                PackageManager pm = getPackageManager();
+                                intent = pm.getLaunchIntentForPackage(packageName);
+                                intent.putExtra("backgournd_type", 1);
+                                startActivity(intent);
+                                handler.postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                    	interstitialAdOpen();
+                                        addInterstitialView();
+                                        handler.postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                if(IntroActivity.activity != null){
+                                                    IntroActivity.activity.finish();
+                                                }
+                                            }
+                                        },0);
+                                    }
+                                },100);
+
+                            } catch (PackageManager.NameNotFoundException e) {
+                            } catch (ActivityNotFoundException e) {
+                            }
             			}
             		}
             	}

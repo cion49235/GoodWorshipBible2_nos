@@ -653,7 +653,7 @@
     <string name="copyright">Copyrightⓒ 2015 Worship Bible Corp.</string>
     <string name="lang">en</string>
     <string name="default_country">us</string>
-    <string name="server_path">http://tarks.net/favorite/</string>
+    <string name="server_path">http://unopenedbox.com/favorite/</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>

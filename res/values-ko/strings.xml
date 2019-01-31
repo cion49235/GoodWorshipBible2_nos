@@ -654,7 +654,7 @@
     <string name="copyright">Copyrightⓒ 2015 예배하기 좋은성경 Corp.</string>
     <string name="lang">ko</string>
     <string name="default_country">kr</string>
-    <string name="server_path">http://tarks.net/favorite/</string>
+    <string name="server_path">http://unopenedbox.com/favorite/</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">설정</string>

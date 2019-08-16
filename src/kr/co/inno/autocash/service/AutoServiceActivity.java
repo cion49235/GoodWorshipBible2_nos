@@ -134,7 +134,7 @@ public class AutoServiceActivity extends Service
             auto_count = 1;
             	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
             		if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, false) == true) {
-            			if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "Y").equals("Y")) {
+            			if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "N").equals("Y")) {
                             String packageName = "";
                             try {
                                 @SuppressWarnings("unused")

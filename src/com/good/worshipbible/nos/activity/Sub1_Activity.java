@@ -535,7 +535,11 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 
     	exit_Hnadler();
     	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
-    		auto_service();    		
+    		if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "N").equals("Y")) {
+    			auto_service();    			
+    		} else {
+    			auto_service_stop();
+    		}
     	}else {
     		auto_service_stop();
     	}
@@ -8798,7 +8802,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 			return;
 		AdInfo adInfo = new AdInfo("u6dbtyd1");
 		adInfo.setInterstitialTimeout(0); // 초단위로 전면 광고 타임아웃 설정 (기본값 : 0, 0 이면 서버 지정 시간(20)으로 처리됨)
-		adInfo.setUseRTBGPSInfo(false);
+//		adInfo.setUseRTBGPSInfo(false);
 		adInfo.setMaxRetryCountInSlot(-1); // 리로드 시간 내에 전체 AdNetwork 반복 최대 횟수(-1 : 무한, 0 : 반복 없음, n : n번 반복)
 		adInfo.setBackgroundAlpha(true); // 고수익 전면광고 노출 시 광고 외 영역 반투명처리 여부 (true: 반투명, false: 처리안함)
 

@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
-import org.json.JSONException;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -22,21 +21,13 @@ import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.ccm.adapter.Sub6_1_Adapter;
 import com.good.worshipbible.nos.ccm.data.Main_Data;
 import com.good.worshipbible.nos.ccm.db.helper.Sub6_2_DBopenHelper;
-import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.podcast.db.helper.Pause_DBOpenHelper;
-import com.good.worshipbible.nos.util.Crypto;
 import com.good.worshipbible.nos.util.KoreanTextMatch;
 import com.good.worshipbible.nos.util.KoreanTextMatcher;
-import com.good.worshipbible.nos.util.PreferenceUtil;
-import com.good.worshipbible.nos.util.Utils;
 import com.good.worshipbible.nos.videoplayer.CustomVideoPlayer;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
-import com.skplanet.tad.AdFloating;
-import com.skplanet.tad.AdFloatingListener;
-import com.skplanet.tad.AdRequest.ErrorCode;
-import com.skplanet.tad.AdSlot;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -81,7 +72,7 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-public class Sub6_1_Activity extends Activity implements OnItemClickListener, OnClickListener, AdViewListener, AdFloatingListener, OnScrollListener{
+public class Sub6_1_Activity extends Activity implements OnItemClickListener, OnClickListener, AdViewListener, OnScrollListener{
 	public static Context context;
 	public ConnectivityManager connectivityManger;
 	public NetworkInfo mobile;
@@ -121,7 +112,6 @@ public class Sub6_1_Activity extends Activity implements OnItemClickListener, On
 	public static Button bt_ccm_favorite;
 	int ccm_channel_which = 1;
 	public static String uploader;
-	public static AdFloating mAdFloating;
 	public String num;
 	public static EditText edit_searcher;
 	public static ImageButton bt_home, bt_search_result; 
@@ -139,10 +129,6 @@ public class Sub6_1_Activity extends Activity implements OnItemClickListener, On
 	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
 	context = this;
 	num = "455";
-	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
-    	addBannerView();
-    	create_mAdFloating();
-	}
 //	init_admob_naive();
 	layout_nodata = (LinearLayout)findViewById(R.id.layout_nodata);
 	layout_progress = (LinearLayout)findViewById(R.id.layout_progress);
@@ -200,44 +186,6 @@ public class Sub6_1_Activity extends Activity implements OnItemClickListener, On
         }
     }
 	
-	public void create_mAdFloating(){
-		// AdFloating 객체를 생성합니다. 
-		mAdFloating = new AdFloating(this); 
-		// AdFloating 상태를 모니터링 할 listner 를 등록합니다. listener 에 대한 내용은 아래 참조 mAdFloating.setListener(mListener);   
-		// 할당받은 ClientID 를 설정합니다. 
-		mAdFloating.setClientId("AX00056ED");   
-		// 할당받은 Slot 번호를 설정합니다.
-		mAdFloating.setSlotNo(AdSlot.FLOATING);  
-		// TestMode 여부를 설정합니다. 
-		mAdFloating.setTestMode(false);  
-		// 광고를 삽입할 parentView 를 설정합니다.
-		mAdFloating.setParentWindow(getWindow()); 
-		// 광고를 요청 합니다. 로드시 설정한 값들이 유효한지 판단한 후 광고를 수신합니다.
-		// 광고 요청에 대한 결과는 설정한 listener 를 통해 알 수 있습니다.
-		mAdFloating.setListener(this);
-		// 일일 광고 노출 제한을 설정합니다.
-//		mAdFloating.setDailyFrequency(5);
-		if (mAdFloating != null) {
-			try{
-				mAdFloating.loadAd(null);
-			}catch(Exception e){ 
-				e.printStackTrace(); 
-			} 
-		}
-		handler.postDelayed(new Runnable() {
-			 @Override
-			 public void run() {
-				 if (mAdFloating.isReady()) {
-						try {
-							mAdFloating.showAd(180, 200);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-			 }
-		 },3000);
-	}
-	
 	@Override
 	protected void onStart() {
 		super.onStart();
@@ -272,10 +220,6 @@ public class Sub6_1_Activity extends Activity implements OnItemClickListener, On
 		edit.putInt("ccm_channel_which", ccm_channel_which);
 		edit.commit();
 		
-		if (mAdFloating != null) {
-			mAdFloating.destroyAd();
-		}
-		
 		edit_searcher.setText("");
 	}
 	
@@ -299,19 +243,9 @@ public class Sub6_1_Activity extends Activity implements OnItemClickListener, On
 	
 	public void onConfigurationChanged(android.content.res.Configuration newConfig) {
 	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-	    	if (mAdFloating != null) {
-				try {
-					mAdFloating.moveAd(320, 50);
-				} catch (Exception e) {
-				}
-			}
+	    	
 	    }else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-	    	if (mAdFloating != null) {
-				try {
-					mAdFloating.moveAd(180, 200);
-				} catch (Exception e) {
-				}
-			}
+	    	
 	    }
 	    super.onConfigurationChanged(newConfig);
 	};
@@ -752,65 +686,6 @@ public class Sub6_1_Activity extends Activity implements OnItemClickListener, On
 	public void onReceivedAd(String arg0, AdView arg1) {
 //		Log.i("dsu", "배너광고 : arg0 : " + arg0+"\n" + arg1) ;
 	}		
-	
-	//** AdFloatingListener 이벤트들 *************
-	@Override
-	public void onAdWillLoad() {
-
-	}
-
-	@Override
-	public void onAdResized() {
-	
-	}
-	
-	@Override
-	public void onAdResizeClosed() {
-	
-	}
-	
-	@Override
-	public void onAdPresentScreen() {
-//		Log.i("dsu", "플로팅배너onAdPresentScreen");
-	}
-	
-	@Override
-	public void onAdLoaded() {
-//		Log.i("dsu", "플로팅배너onAdLoaded");
-	}
-	
-	@Override
-	public void onAdLeaveApplication() {
-//		Log.i("dsu", "플로팅배너onAdLeaveApplication");
-	}
-	
-	@Override
-	public void onAdExpanded() {
-		
-	}
-	
-	@Override
-	public void onAdExpandClosed() {
-		
-	}
-	
-	@Override
-	public void onAdDismissScreen() {
-//		Log.i("dsu", "플로팅배너onAdDismissScreen");
-	}
-
-	@Override
-	public void onAdFailed(ErrorCode arg0) {
-//		Log.i("dsu", "플로팅배너onAdFailed : " + arg0);
-	}
-
-	@Override
-	public void onAdClicked() {
-	}
-
-	@Override
-	public void onAdClosed(boolean arg0) {
-	}
 	
 	@Override
 	public void onScrollStateChanged(AbsListView view, int scrollState) {

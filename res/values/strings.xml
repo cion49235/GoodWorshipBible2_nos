@@ -63,12 +63,12 @@
     <string name="txt_sub_action4">Share</string>
     
     <string name="txt_setting_alert_title">Setting</string>
-    <string name="txt_setting_alert0">SelectBible1</string>
-    <string name="txt_setting_alert1">SelectBible2</string>
-    <string name="txt_setting_alert2">AudioSpeed</string>
-    <string name="txt_setting_alert3">TextColor</string>
-    <string name="txt_setting_alert4">ContactUs</string>
-    <string name="txt_setting_alert5">ThisApp Share</string>
+    <string name="txt_setting_alert0">Select Bible1</string>
+    <string name="txt_setting_alert1">Select Bible2</string>
+    <string name="txt_setting_alert2">Audio Speed</string>
+    <string name="txt_setting_alert3">Text Color</string>
+    <string name="txt_setting_alert4">Review Rating</string>
+    <string name="txt_setting_alert5">App Share</string>
     
     <string name="txt_bible_list_none">None</string>
     <string name="txt_bible_list1">개역개정판</string>
@@ -885,5 +885,17 @@
     <string name="url_detail_voicedata1">"http://streampod.jnetwork.kr/bible_voice/"</string>
     <string name="url_detail_voicedata2">"http://streampod.jnetwork.kr/bible_voice2/"</string>
     
+    <string name="alert_update_01">"Software Update"</string>
+    <string name="alert_update_02">"\nYou have a new version and need to update to continue using it" Please update now via the Store"</string>
+    <string name="alert_update_03">"Yes"</string>
+    <string name="alert_update_05">"No"</string>
+    
+    <string name="service_check">"Server is under review. We will do our best to check it out soon. Please do not erase it. Please try again after a certain time. Sorry for the inconvenience!"</string>
+    <string name="setNeutralButton">"Confirm"</string>
+    
+    <string name="bt_close">"Close"</string>
+    <string name="bt_market">"Download"</string>
+    <string name="cb_today_close">"No more popups are exposed today"</string>
+    <string name="txt_backpressed">"Pressing the Back button again will close the app."</string>
     
 </resources>

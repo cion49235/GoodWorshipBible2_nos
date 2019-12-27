@@ -20,14 +20,11 @@ import com.admixer.AdInfo;
 import com.admixer.AdMixerManager;
 import com.admixer.AdView;
 import com.admixer.AdViewListener;
-import com.admixer.CustomPopup;
-import com.admixer.CustomPopupListener;
 import com.admixer.InterstitialAd;
 import com.admixer.InterstitialAdListener;
 import com.admixer.PopupInterstitialAdOption;
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
-import com.co.shallwead.sdk.api.ShallWeAd;
 import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.ccm.db.helper.VoicePause_DBOpenHelper;
 import com.good.worshipbible.nos.data.Const;
@@ -66,9 +63,8 @@ import com.good.worshipbible.nos.db.helper.DBOpenHelper_tagalog;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_tkh;
 import com.good.worshipbible.nos.db.helper.DBOpenHelper_web;
 import com.good.worshipbible.nos.util.PreferenceUtil;
-import com.good.worshipbible.nos.util.SimpleCrypto;
 import com.good.worshipbible.nos.util.TimeUtil;
-import com.good.worshipbible.nos.util.Utils;
+import com.good.worshipbible.nos.widget.DialogMainPopup;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
@@ -76,12 +72,14 @@ import com.google.android.gms.ads.NativeExpressAdView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -131,10 +129,9 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import kr.co.inno.autocash.service.AutoServiceActivity;
 
 
-public class Sub1_Activity extends Activity implements OnClickListener,OnItemClickListener, OnScrollListener, OnInitListener,InterstitialAdListener, AdViewListener, CustomPopupListener {
+public class Sub1_Activity extends Activity implements OnClickListener,OnItemClickListener, OnScrollListener, OnInitListener,InterstitialAdListener, AdViewListener {
 	public SQLiteDatabase mdb, mdb2;
 	private DBOpenHelper_Sub4 favorite_mydb;
 	private DBOpenHelper_kbb kbb_db;
@@ -368,10 +365,9 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     	AdMixerManager.getInstance().setAdapterDefaultAppCode(AdAdapter.ADAPTER_ADMOB_FULL, "ca-app-pub-4637651494513698/2222278564");
         context = this;
         retry_alert = true;
+        alert_view = true;
+		today_date();
         billing_process();//인앱정기결제체크
-        
-        ShallWeAd.initialize(this); //쉘위ad광고
-        interstitialAdOpen();
         
 //start=========================================================================================================        
 //        settings = getSharedPreferences(context.getString(R.string.txt_sharedpreferences_string), MODE_PRIVATE);
@@ -405,11 +401,12 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
         	addBannerView();    		
     	}
+        
+        if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_RECOMMEND_STATUS, "N").equals("Y")){
+            main_popup();
+        }
 //        init_admob_naive();
         
-//      Custom Popup 시작
-        CustomPopup.setCustomPopupListener(this);
-        CustomPopup.startCustomPopup(this, "u6dbtyd1");
         String kwon_kbb[] = {context.getString(R.string.txt_kwon_kbb1),
         		context.getString(R.string.txt_kwon_kbb2),
     			context.getString(R.string.txt_kwon_kbb3),
@@ -534,15 +531,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     	}
 
     	exit_Hnadler();
-    	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
-    		if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, "N").equals("Y")) {
-    			auto_service();    			
-    		} else {
-    			auto_service_stop();
-    		}
-    	}else {
-    		auto_service_stop();
-    	}
+    	
     	TelephonyManager telephonymanager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		telephonymanager.listen(new PhoneStateListener() {
 			public void onCallStateChanged(int state, String incomingNumber) {
@@ -569,51 +558,33 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 		}, PhoneStateListener.LISTEN_CALL_STATE); 
     }
 	
-	
-	public void interstitialAdOpen()
-	{
-		ShallWeAd.showInterstitialAd(this, new ShallWeAd.ShallWeAdListener() {
-
-			@Override
-			public void onResultInterstitial(boolean result, int reason)
-			{
-				switch (reason)
-				{
-				case ShallWeAd.NOT_EXIST_AD_INFO:
-					break;
-				case ShallWeAd.NOT_PASS_SHOW_TIME:
-					break;
-				case ShallWeAd.ALL_APPS_INSTALLED:
-					break;
-				case ShallWeAd.SUCCESS_SHOW_AD:
-					break;
-				case ShallWeAd.ERROR:
-					break;
-				default:
-					break;
-				}
-			}
-			@Override
-			public void onResultExitDialog(boolean result, int reason)
-			{
-			}
-			@Override
-			public void onInterstitialClose(int selectItem)
-			{
-			}
-		});
-	}
-	
-	private void auto_service() {
-        Intent intent = new Intent(context, AutoServiceActivity.class);
-        context.stopService(intent);
-        context.startService(intent);
+	private void today_date(){
+        Date today = new Date();
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        String date_today =  date.format(today);
+//        Log.i("dsu","저장된날짜 ======================>: "+ PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_DATE_TODAY, date_today));
+//        Log.i("dsu","오늘날짜 ======================>: "+ date_today);
+        if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_DATE_TODAY, date_today).equals(date_today)){
+            PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_RECOMMEND_POPUP, false);
+        }
+        PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_DATE_TODAY, date_today);
+//        Log.i("dsu","그리고 오늘날짜저장 ======================>: "+ date_today);
     }
 	
-	private void auto_service_stop() {
-        Intent intent = new Intent(context, AutoServiceActivity.class);
-        context.stopService(intent);
+	private void main_popup(){
+        if(PreferenceUtil.getBooleanSharedData(context, PreferenceUtil.PREF_RECOMMEND_POPUP, false) == false){
+            dialog_recommend_popup();
+        }
     }
+	
+	private boolean alert_view = false;
+	 private void dialog_recommend_popup(){
+	        DialogMainPopup dialogClose =  new DialogMainPopup(context, this);
+	        dialogClose.setCanceledOnTouchOutside(false);
+	        dialogClose.setCancelable(true);
+	        if(alert_view) dialogClose.show();
+	    }
+	
 	
 	@Override
 	protected void onPause() {
@@ -630,9 +601,9 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
     @Override
     protected void onDestroy() {
     	super.onDestroy();
+    	alert_view = false;
     	retry_alert = false;
 //    	admobNative.destroy();
-    	CustomPopup.stopCustomPopup();
     	if(kkk_db != null){
     		kkk_db.close();
     	}
@@ -7598,9 +7569,20 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         					}
         				}).show();	
         			}else if(which == 4){//문의하기
-        				Intent intent = new Intent(context, ContactUs_Activity.class);
+        				/*Intent intent = new Intent(context, ContactUs_Activity.class);
         				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        				startActivity(intent);
+        				startActivity(intent);*/
+        				
+        				String packageName = "";
+                        try {
+                            @SuppressWarnings("unused")
+    						PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                            packageName = getPackageName();
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+                        } catch (PackageManager.NameNotFoundException e) {
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+                        }
         			}else if(which == 5){//이앱전도
         				Intent intent = new Intent(Intent.ACTION_SEND);
         				intent.setType("text/plain");    
@@ -8849,31 +8831,6 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
         }
     }
 	
-	//** CustomPopup 이벤트들 *************
-	@Override
-	public void onCloseCustomPopup(String arg0) {
-	}
-
-	@Override
-	public void onHasNoCustomPopup() {
-	}
-
-	@Override
-	public void onShowCustomPopup(String arg0) {
-	}
-
-	@Override
-	public void onStartedCustomPopup() {
-	}
-
-	@Override
-	public void onWillCloseCustomPopup(String arg0) {
-	}
-
-	@Override
-	public void onWillShowCustomPopup(String arg0) {
-	}
-	
 	//** BannerAd 이벤트들 *************
 	@Override
 	public void onClickedAd(String arg0, AdView arg1) {
@@ -9046,10 +9003,9 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 						 handler.postDelayed(new Runnable() {
 							 @Override
 							 public void run() {
-								 /*is_finish = false;
+								 is_finish = false;
 								 PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
-								 finish();*/
-								 exitAdView();
+								 finish();
 							 }
 						 },0);
 					 }catch(Exception e){
@@ -9060,51 +9016,7 @@ public class Sub1_Activity extends Activity implements OnClickListener,OnItemCli
 		return super.onKeyDown(keyCode, event);
 	}
 	
-	LinearLayout exitBanner;
-	public void exitAdView() {
-		exitBanner = ShallWeAd.getExitAdView(this, new ShallWeAd.ShallWeAdListener() {
-
-			@Override
-			public void onResultInterstitial(boolean result, int reason) {
-				// TODO Auto-generated method stub
-			}
-
-			@Override
-			public void onResultExitDialog(boolean result, int reason) {
-				// TODO Auto-generated method stub
-				Log.e("", "onResultExitDialog");
-			}
-
-			@Override
-			public void onInterstitialClose(int selectedItem) {
-				// TODO Auto-generated method stub
-
-			}
-		});
-		createDialog();
-	}
 	
-	private void createDialog() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setCancelable(false);
-        builder.setMessage(context.getString(R.string.txt_finish_ment));
-        builder.setPositiveButton(context.getString(R.string.txt_finish_yes), new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int whichButton){
-            	 is_finish = false;
-				 PreferenceUtil.setBooleanSharedData(context, PreferenceUtil.PREF_AD_VIEW, true);
-				 finish();
-            	dialog.dismiss();
-            }
-        });
-        
-        builder.setNegativeButton(context.getString(R.string.txt_finish_no), new DialogInterface.OnClickListener(){
-            public void onClick(DialogInterface dialog, int whichButton){
-            	dialog.dismiss();
-            }
-        });
-        AlertDialog myAlertDialog = builder.setView(exitBanner).create();
-        myAlertDialog.show();	 
-	}
 	
 	public class DownloadDBAsync extends AsyncTask<String, Integer, String>{
 		String file_name, url_path, dir_name, bible_type, input_db_path;

@@ -30,10 +30,6 @@ import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
-import com.skplanet.tad.AdFloating;
-import com.skplanet.tad.AdFloatingListener;
-import com.skplanet.tad.AdRequest.ErrorCode;
-import com.skplanet.tad.AdSlot;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -66,7 +62,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-public class Sub5_2_Activity extends Activity implements OnItemClickListener, OnClickListener, AdViewListener, AdFloatingListener, OnScrollListener{
+public class Sub5_2_Activity extends Activity implements OnItemClickListener, OnClickListener, AdViewListener, OnScrollListener{
 	public static Context context;
 	public ConnectivityManager connectivityManger;
 	public NetworkInfo mobile;
@@ -89,7 +85,6 @@ public class Sub5_2_Activity extends Activity implements OnItemClickListener, On
 	public static ProgressBar progressBar;
 	public static Button Bottom_01, Bottom_02, Bottom_05;
 	public boolean retry_alert = false;
-	public static AdFloating mAdFloating;
 //	SharedPreferences settings,pref;
 //	Editor edit;
 	public Handler handler = new Handler();
@@ -107,7 +102,6 @@ public class Sub5_2_Activity extends Activity implements OnItemClickListener, On
 	context = this;
 	if(!PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_ISSUBSCRIBED, Const.isSubscribed).equals("true")){
     	addBannerView();
-    	create_mAdFloating();
 	}
 //	init_admob_naive();
 	continue_mydb = new Sub5_5_DBopenHelper(this);
@@ -157,43 +151,6 @@ public class Sub5_2_Activity extends Activity implements OnItemClickListener, On
         }
     }
 	
-	public void create_mAdFloating(){
-		// AdFloating 객체를 생성합니다. 
-		mAdFloating = new AdFloating(this); 
-		// AdFloating 상태를 모니터링 할 listner 를 등록합니다. listener 에 대한 내용은 아래 참조 mAdFloating.setListener(mListener);   
-		// 할당받은 ClientID 를 설정합니다. 
-		mAdFloating.setClientId("AX00056ED");   
-		// 할당받은 Slot 번호를 설정합니다.
-		mAdFloating.setSlotNo(AdSlot.FLOATING);  
-		// TestMode 여부를 설정합니다. 
-		mAdFloating.setTestMode(false);  
-		// 광고를 삽입할 parentView 를 설정합니다.
-		mAdFloating.setParentWindow(getWindow()); 
-		// 광고를 요청 합니다. 로드시 설정한 값들이 유효한지 판단한 후 광고를 수신합니다.
-		// 광고 요청에 대한 결과는 설정한 listener 를 통해 알 수 있습니다.
-		mAdFloating.setListener(this);
-		// 일일 광고 노출 제한을 설정합니다.
-//		mAdFloating.setDailyFrequency(5);
-		if (mAdFloating != null) {
-			try{
-				mAdFloating.loadAd(null);
-			}catch(Exception e){ 
-				e.printStackTrace(); 
-			} 
-		}
-		handler.postDelayed(new Runnable() {
-			 @Override
-			 public void run() {
-				 if (mAdFloating.isReady()) {
-						try {
-							mAdFloating.showAd(180, 200);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-			 }
-		 },3000);
-	}
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -216,9 +173,6 @@ public class Sub5_2_Activity extends Activity implements OnItemClickListener, On
 		super.onDestroy();
 //		admobNative.destroy();
 		retry_alert = false;
-		if (mAdFloating != null) {
-			mAdFloating.destroyAd();
-		}
 	}
 	
 	@Override
@@ -239,19 +193,7 @@ public class Sub5_2_Activity extends Activity implements OnItemClickListener, On
 	
 	public void onConfigurationChanged(android.content.res.Configuration newConfig) {
 	    if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-	    	if (mAdFloating != null) {
-				try {
-					mAdFloating.moveAd(320, 50);
-				} catch (Exception e) {
-				}
-			}
 	    }else if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT){
-	    	if (mAdFloating != null) {
-				try {
-					mAdFloating.moveAd(180, 200);
-				} catch (Exception e) {
-				}
-			}
 	    }
 	    super.onConfigurationChanged(newConfig);
 	};
@@ -580,63 +522,4 @@ public class Sub5_2_Activity extends Activity implements OnItemClickListener, On
 		super.onBackPressed();
 	}
 	
-	//** AdFloatingListener 이벤트들 *************
-	@Override
-	public void onAdWillLoad() {
-
-	}
-
-	@Override
-	public void onAdResized() {
-	
-	}
-	
-	@Override
-	public void onAdResizeClosed() {
-	
-	}
-	
-	@Override
-	public void onAdPresentScreen() {
-//		Log.i("dsu", "플로팅배너onAdPresentScreen");
-	}
-	
-	@Override
-	public void onAdLoaded() {
-//		Log.i("dsu", "플로팅배너onAdLoaded");
-	}
-	
-	@Override
-	public void onAdLeaveApplication() {
-//		Log.i("dsu", "플로팅배너onAdLeaveApplication");
-	}
-	
-	@Override
-	public void onAdExpanded() {
-		
-	}
-	
-	@Override
-	public void onAdExpandClosed() {
-		
-	}
-	
-	@Override
-	public void onAdDismissScreen() {
-//		Log.i("dsu", "플로팅배너onAdDismissScreen");
-	}
-
-	@Override
-	public void onAdFailed(ErrorCode arg0) {
-//		Log.i("dsu", "플로팅배너onAdFailed : " + arg0);
-	}
-
-	@Override
-	public void onAdClicked() {
-	
-	}
-
-	@Override
-	public void onAdClosed(boolean arg0) {
-	}
 }

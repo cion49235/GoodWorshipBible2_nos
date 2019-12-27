@@ -72,12 +72,15 @@ import com.google.android.gms.ads.NativeExpressAdView;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -4233,9 +4236,19 @@ public class Sub2_Activity extends Activity implements OnClickListener,OnItemCli
         					}
         				}).show();	
         			}else if(which == 4){//문의하기
-        				Intent intent = new Intent(context, ContactUs_Activity.class);
+        				/*Intent intent = new Intent(context, ContactUs_Activity.class);
         				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        				startActivity(intent);
+        				startActivity(intent);*/
+        				String packageName = "";
+                        try {
+                            @SuppressWarnings("unused")
+    						PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                            packageName = getPackageName();
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+                        } catch (PackageManager.NameNotFoundException e) {
+                        } catch (ActivityNotFoundException e) {
+                            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+                        }
         			}else if(which == 5){//이앱전도
         				Intent intent = new Intent(Intent.ACTION_SEND);
         				intent.setType("text/plain");    

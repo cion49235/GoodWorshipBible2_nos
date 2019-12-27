@@ -68,7 +68,7 @@
     <string name="txt_setting_alert1">성경2선택</string>
     <string name="txt_setting_alert2">읽기 속도</string>
     <string name="txt_setting_alert3">글자 색상</string>
-    <string name="txt_setting_alert4">문의 하기</string>
+    <string name="txt_setting_alert4">평가 문의</string>
     <string name="txt_setting_alert5">이앱 전도</string>
     
     <string name="txt_bible_list_none">없음</string>
@@ -869,5 +869,18 @@
     <string name="txt_inapp_alert_title">"광고제거"</string>
     <string name="txt_inapp_alert_yes">"광고제거"</string>
     <string name="txt_inapp_alert_no">"취소하기"</string>
+    
+    <string name="alert_update_01">"소프트웨어 업데이트"</string>
+    <string name="alert_update_02">"\n새로운 버젼이 나왔습니다. 계속 이용하려면 업데이트를 해야 합니다. "지금 스토어를 통해 업데이트를 하시기 바랍니다."</string>
+    <string name="alert_update_03">"예"</string>
+    <string name="alert_update_05">"아니오"</string>
+    
+    <string name="service_check">"서버점검중입니다 빠른시일 점검할수있도록 최선을 다하겠습니다 지우지 마시고 일정시간 지난 후 다시 실행해주세요 이용에 불편을 드려서 죄송합니다!"</string>
+    <string name="setNeutralButton">"확인"</string>
+
+    <string name="bt_close">"닫기"</string>
+    <string name="bt_market">"다운로드"</string>
+    <string name="cb_today_close">"오늘 하루 더이상 보지않기"</string>
+    <string name="txt_backpressed">"뒤로가기 버튼을 '한번' 더 누르시면 앱이 종료됩니다."</string>
     
 </resources>

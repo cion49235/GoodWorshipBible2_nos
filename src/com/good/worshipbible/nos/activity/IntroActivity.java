@@ -24,18 +24,23 @@ import com.anjlab.android.iab.v3.TransactionDetails;
 import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.util.PreferenceUtil;
 import com.good.worshipbible.nos.util.StringUtil;
+import com.good.worshipbible.nos.widget.DialogServicePopup;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -67,16 +72,8 @@ public class IntroActivity extends Activity{
         setContentView(R.layout.activity_intro);
         context = this;
         activity = this;
-        bg_intro = (LinearLayout)findViewById(R.id.bg_intro);
-        if(getIntent().getIntExtra("backgournd_type", background_type) == 0){
-            bg_intro.setBackgroundResource(R.drawable.bg_intro_background);
-        }else{
-            bg_intro.setBackgroundColor(Color.TRANSPARENT);
-        }	
+        alert_view = true;
         retry_alert = true;
-        
-        adstatus_async = new Adstatus_Async();
-        adstatus_async.execute();	 
         
         String kkk_path = context.getString(R.string.txt_kkk_path);
         String kbb_path = context.getString(R.string.txt_kbb_path);
@@ -117,8 +114,8 @@ public class IntroActivity extends Activity{
         
         billing_process();//인앱정기결제체크
         
-        handler = new Handler();
-        handler.postDelayed(runnable, 2000);
+        adstatus_async = new Adstatus_Async();
+        adstatus_async.execute();	 
     }
     
     private BillingProcessor bp;
@@ -170,18 +167,22 @@ public class IntroActivity extends Activity{
     
     private Adstatus_Async adstatus_async = null;
     public class Adstatus_Async extends AsyncTask<String, Integer, String> {
-        int ad_id;
-        String ad_status;
-        String ad_time;
+    	String version;
+        String service_status;
+        String recommend_status;
+        String tv_service;
+        String tv_recommend;
+        String pk_recommend_name;
+        HttpURLConnection localHttpURLConnection;
         public Adstatus_Async(){
         }
         @Override
         protected String doInBackground(String... params) {
             String sTag;
             try{
-            	String str = "http://cion49235.cafe24.com/cion49235/goodworshipbible2_nos/ad_status.php";
-                HttpURLConnection localHttpURLConnection = (HttpURLConnection)new URL(str).openConnection();
-                HttpURLConnection.setFollowRedirects(false);
+            	String str = "http://cion49235.cafe24.com/cion49235/goodworshipbible2_nos/ad_status2.php";
+                localHttpURLConnection = (HttpURLConnection)new URL(str).openConnection();
+                localHttpURLConnection.setFollowRedirects(true);
                 localHttpURLConnection.setConnectTimeout(15000);
                 localHttpURLConnection.setReadTimeout(15000);
                 localHttpURLConnection.setRequestMethod("GET");
@@ -189,27 +190,41 @@ public class IntroActivity extends Activity{
                 InputStream inputStream = new URL(str).openStream();
                 XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                 XmlPullParser xpp = factory.newPullParser();
-                xpp.setInput(inputStream, "EUC-KR"); 
+                xpp.setInput(inputStream, "EUC-KR");
                 int eventType = xpp.getEventType();
                 while (eventType != XmlPullParser.END_DOCUMENT) {
                     if (eventType == XmlPullParser.START_DOCUMENT) {
                     }else if (eventType == XmlPullParser.END_DOCUMENT) {
                     }else if (eventType == XmlPullParser.START_TAG){
                         sTag = xpp.getName();
-                        if(sTag.equals("Ad")){
-                            ad_id = Integer.parseInt(xpp.getAttributeValue(null, "ad_id") + "");
-                        }else if(sTag.equals("ad_status")){
-                            ad_status = xpp.nextText()+"";
-                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_AD_STATUS, ad_status);
-                        }else if(sTag.equals("ad_time")){
-                            ad_time = xpp.nextText()+"";
-                            Log.i("dsu", "ad_time===>" + ad_time);
-                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_AD_TIME, ad_time);
+                        if(sTag.equals("version")){
+                            version = xpp.nextText()+"";
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_VERSION, version);
+                            Log.i("dsu", "version : " + version);
+                        }else if(sTag.equals("service_status")){
+                            service_status = xpp.nextText()+"";
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_SERVICE_STATUS, service_status);
+                            Log.i("dsu", "service_status : " + service_status);
+                        }else if(sTag.equals("recommend_status")){
+                            recommend_status = xpp.nextText()+"";
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_RECOMMEND_STATUS, recommend_status);
+                            Log.i("dsu", "recommend_status : " + recommend_status);
+                        }else if(sTag.equals("tv_service")){
+                            tv_service = xpp.nextText()+"";
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_TV_SERVICE, tv_service);
+                            Log.i("dsu", "tv_service : " + tv_service);
+                        }else if(sTag.equals("tv_recommend")){
+                            tv_recommend = xpp.nextText()+"";
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_TV_RECOMMEND, tv_recommend);
+                            Log.i("dsu", "tv_recommend : " + tv_recommend);
+                        }else if(sTag.equals("pk_recommend_name")){
+                            pk_recommend_name = xpp.nextText()+"";
+                            PreferenceUtil.setStringSharedData(context, PreferenceUtil.PREF_PK_RECOMMEND_NAME, pk_recommend_name);
+                            Log.i("dsu", "pk_recommend_name : " + pk_recommend_name);
                         }
                     } else if (eventType == XmlPullParser.END_TAG){
                         sTag = xpp.getName();
                         if(sTag.equals("Finish")){
-
                         }
                     } else if (eventType == XmlPullParser.TEXT) {
                     }
@@ -228,27 +243,72 @@ public class IntroActivity extends Activity{
             catch (Resources.NotFoundException localNotFoundException)
             {
             }
-            catch (NullPointerException NullPointerException)
+            catch (java.lang.NullPointerException NullPointerException)
             {
             }
             catch (Exception e)
             {
             }
-            return ad_status;
+            return service_status;
         }
 
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
+            version_check();
         }
         @Override
-        protected void onPostExecute(String ad_status) {
-            super.onPostExecute(ad_status);
-            
+        protected void onPostExecute(String service_status) {
+            super.onPostExecute(service_status);
         }
         @Override
         protected void onProgressUpdate(Integer... values) {
             super.onProgressUpdate(values);
+        }
+    }
+    
+    int versionCode;
+    @SuppressWarnings("deprecation")
+	private void version_check(){
+        PackageInfo pi=null;
+        try {
+            pi = getPackageManager().getPackageInfo(getPackageName(), 0);
+            versionCode = pi.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+        } catch (NullPointerException e){
+        } catch (Exception e){
+        }
+        if ( (versionCode < Integer.parseInt(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_VERSION, "1"))) && (versionCode > 0) ) {
+           android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(context);
+//            builder.setIcon(R.drawable.icon128);
+            builder.setTitle(context.getString(R.string.alert_update_01));
+            builder.setMessage(context.getString(R.string.alert_update_02));
+            builder.setCancelable(false);
+            builder.setPositiveButton(Html.fromHtml("<font color='#ff6d00'>'"+context.getString(R.string.alert_update_03)+"'</font>"), new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int whichButton){
+                    String packageName = "";
+                    try {
+                        @SuppressWarnings("unused")
+						PackageInfo packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+                        packageName = getPackageName();
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=" + packageName)));
+                    } catch (PackageManager.NameNotFoundException e) {
+                    } catch (ActivityNotFoundException e) {
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=" + packageName)));
+                    }
+                }
+            });
+            builder.setNegativeButton(Html.fromHtml("<font color='#ff6d00'>'"+context.getString(R.string.alert_update_05)+"'</font>"), new DialogInterface.OnClickListener(){
+                public void onClick(DialogInterface dialog, int whichButton){
+                    finish();
+                }
+            });
+            android.app.AlertDialog myAlertDialog = builder.create();
+            myAlertDialog.show();
+        }
+        else {
+            handler = new Handler();
+            handler.postDelayed(runnable, 2000);
         }
     }
     
@@ -342,6 +402,7 @@ public class IntroActivity extends Activity{
     @Override
     protected void onDestroy() {
     	super.onDestroy();
+    	alert_view = false;
     	retry_alert = false;
     	if(handler != null){
     		handler.removeCallbacks(runnable);
@@ -1157,14 +1218,36 @@ public class IntroActivity extends Activity{
 			}else {
 				show_inapp_alert();	
 			}*/
-			Intent intent = new Intent(context, Sub1_Activity.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-			startActivity(intent);
-			finish();
-			//fade_animation
-			overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+			if(PreferenceUtil.getStringSharedData(context, PreferenceUtil.PREF_SERVICE_STATUS, "Y").equals("Y")){
+				Intent intent = new Intent(context, Sub1_Activity.class);
+				intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
+				finish();
+				//fade_animation
+				overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);				
+			}else {
+				service_popup();
+			}
 		}
 	};
+	
+	public void go_main(){
+		Intent intent = new Intent(context, Sub1_Activity.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		startActivity(intent);
+		finish();
+		//fade_animation
+		overridePendingTransition(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
+    }
+	
+	private boolean alert_view = false;
+	private void service_popup(){
+        DialogServicePopup dialog =  new DialogServicePopup(context, activity);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        if(alert_view) dialog.show();
+    }
+	
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();

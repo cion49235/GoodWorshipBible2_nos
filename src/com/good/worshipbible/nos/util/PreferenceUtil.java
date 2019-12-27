@@ -14,8 +14,16 @@ public class PreferenceUtil {
 	public final static String PREF_AD_STATUS = "ad_status";
 	public final static String PREF_AD_TIME = "ad_time";
 	public final static String PREF_ISSUBSCRIBED = "pref_issubscribed";
-	//==============================================================================================//
-	//================================ ?îÑÎ¶¨Ìçº?ü∞?ä§ ???û•?ïòÍ≥? Î∂àÎü¨?ò§Í∏? ================================//
+	
+	public final static String PREF_VERSION = "version";
+	public final static String PREF_SERVICE_STATUS = "service_status";
+    public final static String PREF_RECOMMEND_STATUS = "recommend_status";
+    public final static String PREF_DATE_TODAY = "pref_date_today";
+    public final static String PREF_RECOMMEND_POPUP = "pref_recommend_popup";
+    public final static String PREF_TV_SERVICE = "pref_tv_service";
+    public final static String PREF_TV_RECOMMEND = "pref_tv_recommend";
+    public final static String PREF_PK_RECOMMEND_NAME = "pref_pk_recommend_name";
+	
 	public static boolean getBooleanSharedData(Context context, String key, boolean defaultData) {
         SharedPreferences pref = context.getSharedPreferences(SHARED_FILE_TITLE, Context.MODE_PRIVATE);
         return pref.getBoolean(key, defaultData);

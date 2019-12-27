@@ -3,12 +3,9 @@
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.LIBRARIES"/>
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
-	<classpathentry kind="lib" path="libs/CaulySDK-3.3.30.jar"/>
 	<classpathentry kind="lib" path="libs/google-play-services.jar"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="libs/DawinClickSDK_3.16.4.jar"/>
-	<classpathentry kind="lib" path="libs/shallweadsdk_v1.12_20180718.jar"/>
 	<classpathentry kind="lib" path="libs/AdMixer_1.4.7.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

@@ -8,8 +8,6 @@ import com.admixer.InterstitialAdListener;
 import com.good.worshipbible.nos.R;
 import com.good.worshipbible.nos.data.Const;
 import com.good.worshipbible.nos.util.PreferenceUtil;
-import com.good.worshipbible.nos.util.SimpleCrypto;
-import com.good.worshipbible.nos.util.Utils;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.NativeExpressAdView;
